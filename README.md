@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Suede Reply
 
-## Getting Started
+**Make your brand the answer.** The Suede take on CrowdReply: a free, instant AI-visibility audit. Paste a URL, get a graded report on how visible the site is to ChatGPT, Claude, Perplexity, and Gemini — and exactly what to fix.
 
-First, run the development server:
+## How it works
+
+One page, one API route, zero LLM calls. `POST /api/audit` fetches the page, `robots.txt`, and `llms.txt`, then runs deterministic checks across five weighted lanes distilled from the Suede audit skill pack (`suede-seo-audit`, `suede-visibility-grader`, `seo-geo`):
+
+| Lane | Weight | Checks |
+|---|---|---|
+| AI Crawler Access | 25 | GPTBot / ClaudeBot / PerplexityBot / Google-Extended / CCBot allowed, llms.txt present |
+| Metadata & Sharing | 20 | Title, meta description, canonical, Open Graph, HTTPS |
+| Structured Data | 20 | JSON-LD present, entity schema, FAQ schema |
+| Citability | 25 | Single H1, section structure, content depth, lists, question-form headings |
+| Trust Signals | 10 | About page, contact route, freshness markup |
+
+Weighted lane scores roll up to an overall 0–100 score and A–F grade, plus a ranked "fix these first" list.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Nothing is stored; all checks are read-only against public pages.
