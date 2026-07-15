@@ -1,7 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AuditReport, Lane } from "@/lib/audit";
+
+type HistoryEntry = { host: string; score: number; grade: string; at: string };
+
+const HISTORY_KEY = "ss-history";
+
+function loadHistory(): HistoryEntry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(entries: HistoryEntry[]) {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(-200)));
+}
 
 const CORAL = "#E8795A";
 
@@ -77,7 +94,26 @@ function LaneCard({ lane }: { lane: Lane }) {
   );
 }
 
-function ReportDetail({ report }: { report: AuditReport }) {
+function TrendBadge({ report, history }: { report: AuditReport; history: HistoryEntry[] }) {
+  const host = hostOf(report.finalUrl);
+  const prior = history.filter((h) => h.host === host && h.at < report.fetchedAt);
+  if (prior.length === 0) {
+    return <span className="text-xs text-stone-400">first audit of this domain</span>;
+  }
+  const last = prior[prior.length - 1];
+  const delta = report.score - last.score;
+  const cls = delta > 0 ? "text-emerald-600" : delta < 0 ? "text-red-600" : "text-stone-400";
+  const arrow = delta > 0 ? "▲" : delta < 0 ? "▼" : "•";
+  return (
+    <span className={`text-xs font-medium ${cls}`}>
+      {arrow} {delta === 0 ? "no change" : `${delta > 0 ? "+" : ""}${delta}`} vs{" "}
+      {new Date(last.at).toLocaleDateString()} ({prior.length + 1} audit
+      {prior.length + 1 > 1 ? "s" : ""} tracked)
+    </span>
+  );
+}
+
+function ReportDetail({ report, history }: { report: AuditReport; history: HistoryEntry[] }) {
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
@@ -90,6 +126,9 @@ function ReportDetail({ report }: { report: AuditReport }) {
           <p className="text-lg font-semibold text-stone-900">{report.score}/100 AI visibility</p>
           <p className="mt-1 text-sm break-all text-stone-500">
             {report.finalUrl} · audited {new Date(report.fetchedAt).toLocaleString()}
+          </p>
+          <p className="mt-1">
+            <TrendBadge report={report} history={history} />
           </p>
         </div>
       </div>
@@ -366,6 +405,11 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reports, setReports] = useState<AuditReport[]>([]);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  useEffect(() => {
+    setHistory(loadHistory());
+  }, []);
 
   const filled = urls.filter((u) => u.trim());
 
@@ -393,6 +437,19 @@ export default function Home() {
         })
       );
       setReports(results);
+      setHistory((prev) => {
+        const merged = [
+          ...prev,
+          ...results.map((r) => ({
+            host: hostOf(r.finalUrl),
+            score: r.score,
+            grade: r.grade,
+            at: r.fetchedAt,
+          })),
+        ];
+        saveHistory(merged);
+        return merged;
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Audit failed.");
     } finally {
@@ -503,7 +560,7 @@ export default function Home() {
                     {hostOf(r.finalUrl)}
                   </h3>
                 )}
-                <ReportDetail report={r} />
+                <ReportDetail report={r} history={history} />
               </div>
             ))}
           </section>
@@ -554,7 +611,8 @@ export default function Home() {
                   <li>Unlimited on-demand audits</li>
                   <li>Competitor comparison</li>
                   <li>Mention watch + reply drafts</li>
-                  <li>Nothing stored, no signup</li>
+                  <li>Visibility history, saved to your browser</li>
+                  <li>Nothing stored on our servers, no signup</li>
                 </ul>
               </div>
               <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
@@ -563,7 +621,7 @@ export default function Home() {
                 <ul className="mt-4 space-y-2 text-sm text-stone-500">
                   <li>Scheduled re-audits and drift alerts</li>
                   <li>Automated brand mention tracking</li>
-                  <li>Visibility history over time</li>
+                  <li>Cross-device history sync</li>
                 </ul>
               </div>
             </div>
