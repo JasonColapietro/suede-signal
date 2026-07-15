@@ -1,4 +1,4 @@
-// Suede Reply — AI visibility audit engine.
+// Suede Signal — AI visibility audit engine.
 // Deterministic checks distilled from the Suede audit skill lanes
 // (suede-seo-audit, suede-visibility-grader, seo-geo). No LLM calls.
 
@@ -39,7 +39,7 @@ const AI_CRAWLERS = [
 
 const FETCH_HEADERS = {
   "User-Agent":
-    "Mozilla/5.0 (compatible; SuedeReplyAudit/1.0; +https://suedeai.ai)",
+    "Mozilla/5.0 (compatible; SuedeSignalAudit/1.0; +https://suedeai.ai)",
   Accept: "text/html,application/xhtml+xml",
 };
 

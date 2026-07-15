@@ -1,6 +1,6 @@
-# Suede Reply
+# Suede Signal
 
-**Make your brand the answer.** The Suede take on CrowdReply: a free, instant AI-visibility audit. Paste a URL, get a graded report on how visible the site is to ChatGPT, Claude, Perplexity, and Gemini — and exactly what to fix.
+**Become the brand AI recommends.** The Suede take on CrowdReply: a free, instant AI-visibility audit. Paste a URL, get a graded report on how visible the site is to ChatGPT, Claude, Perplexity, and Gemini — and exactly what to fix.
 
 ## How it works
 

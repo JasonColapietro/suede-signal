@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "suede-reply",
+      "name": "suede-signal",
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "npm run dev -- -p $PORT"],
       "port": 3400,
