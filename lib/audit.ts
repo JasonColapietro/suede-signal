@@ -2,6 +2,9 @@
 // Deterministic checks distilled from the Suede audit skill lanes
 // (suede-seo-audit, suede-visibility-grader, seo-geo). No LLM calls.
 
+import { lookup } from "node:dns/promises";
+import net from "node:net";
+
 export type CheckResult = {
   id: string;
   label: string;
@@ -43,21 +46,115 @@ const FETCH_HEADERS = {
   Accept: "text/html,application/xhtml+xml",
 };
 
+const MAX_REDIRECTS = 5;
+const MAX_RESPONSE_BYTES = 4 * 1024 * 1024; // 4MB — plenty for an HTML page, caps abuse
+
+// This tool fetches whatever URL a visitor supplies, server-side. Without
+// this check it's an SSRF gadget: an attacker points it at 127.0.0.1, an
+// internal service, or a cloud metadata endpoint and reads the response
+// back through the audit report. Every hop (including redirects) is
+// re-validated against the *resolved* IP, not just the hostname string.
+function isPrivateOrReservedIPv4(ip: string): boolean {
+  const parts = ip.split(".").map(Number);
+  if (parts.length !== 4 || parts.some((p) => Number.isNaN(p))) return true;
+  const [a, b, c] = parts;
+  if (a === 0 || a === 10 || a === 127) return true;
+  if (a === 100 && b >= 64 && b <= 127) return true; // CGNAT
+  if (a === 169 && b === 254) return true; // link-local, incl. cloud metadata (169.254.169.254)
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 168) return true;
+  if (a === 192 && b === 0 && (c === 0 || c === 2)) return true;
+  if (a === 198 && (b === 18 || b === 19)) return true;
+  if (a === 198 && b === 51 && c === 100) return true;
+  if (a === 203 && b === 0 && c === 113) return true;
+  if (a >= 224) return true; // multicast + reserved
+  return false;
+}
+
+function isPrivateOrReservedIPv6(ip: string): boolean {
+  const lower = ip.toLowerCase();
+  if (lower === "::1" || lower === "::") return true;
+  if (/^fe[89ab]/.test(lower)) return true; // fe80::/10 link-local
+  if (/^f[cd]/.test(lower)) return true; // fc00::/7 unique local
+  const mapped = lower.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (mapped) return isPrivateOrReservedIPv4(mapped[1]);
+  return false;
+}
+
+function isPrivateOrReservedIP(ip: string): boolean {
+  if (net.isIPv4(ip)) return isPrivateOrReservedIPv4(ip);
+  if (net.isIPv6(ip)) return isPrivateOrReservedIPv6(ip);
+  return true; // unrecognized shape — fail closed
+}
+
+async function assertPublicHost(hostname: string): Promise<void> {
+  const bare = hostname.replace(/^\[|\]$/g, "").toLowerCase();
+  if (bare === "localhost" || bare.endsWith(".localhost")) {
+    throw new Error("blocked host");
+  }
+  const addresses = await lookup(bare, { all: true });
+  if (addresses.length === 0 || addresses.some((a) => isPrivateOrReservedIP(a.address))) {
+    throw new Error("blocked host");
+  }
+}
+
+async function readCapped(res: Response, maxBytes: number): Promise<string> {
+  const reader = res.body?.getReader();
+  if (!reader) return await res.text();
+  const decoder = new TextDecoder();
+  let received = 0;
+  let out = "";
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    received += value.byteLength;
+    if (received > maxBytes) {
+      const keep = Math.max(0, value.byteLength - (received - maxBytes));
+      out += decoder.decode(value.subarray(0, keep));
+      await reader.cancel().catch(() => {});
+      break;
+    }
+    out += decoder.decode(value, { stream: true });
+  }
+  out += decoder.decode();
+  return out;
+}
+
 async function fetchText(url: string, timeoutMs = 10000): Promise<{ ok: boolean; status: number; text: string; finalUrl: string }> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let current = url;
   try {
-    const res = await fetch(url, {
-      headers: FETCH_HEADERS,
-      redirect: "follow",
-      signal: controller.signal,
-    });
-    const text = await res.text();
-    return { ok: res.ok, status: res.status, text, finalUrl: res.url || url };
+    for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+      const parsed = new URL(current);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        return { ok: false, status: 0, text: "", finalUrl: current };
+      }
+      await assertPublicHost(parsed.hostname);
+
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      let res: Response;
+      try {
+        res = await fetch(current, {
+          headers: FETCH_HEADERS,
+          redirect: "manual",
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timer);
+      }
+
+      const location = res.headers.get("location");
+      if (res.status >= 300 && res.status < 400 && location) {
+        current = new URL(location, current).toString();
+        continue;
+      }
+
+      const text = await readCapped(res, MAX_RESPONSE_BYTES);
+      return { ok: res.ok, status: res.status, text, finalUrl: current };
+    }
+    return { ok: false, status: 0, text: "", finalUrl: current };
   } catch {
-    return { ok: false, status: 0, text: "", finalUrl: url };
-  } finally {
-    clearTimeout(timer);
+    return { ok: false, status: 0, text: "", finalUrl: current };
   }
 }
 

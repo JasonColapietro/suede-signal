@@ -320,7 +320,7 @@ function MentionWatch({ brand }: { brand: string }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="brand or topic"
-          className="flex-1 rounded-full border border-stone-300 bg-white px-5 py-3 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
+          className="min-w-0 flex-1 rounded-full border border-stone-300 bg-white px-5 py-3 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
           spellCheck={false}
         />
         <button
@@ -493,7 +493,7 @@ export default function Home() {
               value={u}
               onChange={(e) => setUrl(i, e.target.value)}
               placeholder={i === 0 ? "yourdomain.com" : `competitor${i}.com`}
-              className="flex-1 rounded-full border border-stone-300 bg-white px-6 py-3.5 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
+              className="min-w-0 flex-1 rounded-full border border-stone-300 bg-white px-6 py-3.5 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
               spellCheck={false}
               autoFocus={i === 0}
             />
