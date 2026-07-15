@@ -1,15 +1,31 @@
 @import "tailwindcss";
 
-/* Suede Signal is a light-only design (warm paper + coral). */
+/*
+  Suede Signal — light, off-white surface with a black/coral two-tone
+  action system. Visual grammar (rounded-pill nav, badge-over-headline,
+  floating connector icons, black+coral CTA pairing, alternating feature
+  panels, scrolling query ticker) is adapted from crowdreply.io's layout
+  DNA; palette values, copy, product screenshots, and claims are our own.
+*/
 :root {
-  --background: #faf6f0;
-  --foreground: #292524;
+  --background: #faf9f7;
+  --surface: #ffffff;
+  --border: #e7e3dc;
+  --foreground: #17140f;
+  --muted: #6b6459;
+  --accent: #ef7a4f;
+  --accent-strong: #dd6538;
   color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -18,4 +34,39 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes sweep-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-sweep-in {
+  animation: sweep-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sweep-in,
+  .animate-marquee {
+    animation: none;
+  }
 }

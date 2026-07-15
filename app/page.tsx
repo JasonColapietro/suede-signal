@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 import type { AuditReport, Lane } from "@/lib/audit";
+import { SignalGauge } from "@/app/components/SignalGauge";
+import { OrbitIcons } from "@/app/components/OrbitIcons";
+import { Marquee } from "@/app/components/Marquee";
+
+const EXAMPLE_DOMAIN = "suedeai.ai";
 
 type HistoryEntry = { host: string; score: number; grade: string; at: string };
 
@@ -18,22 +23,6 @@ function loadHistory(): HistoryEntry[] {
 
 function saveHistory(entries: HistoryEntry[]) {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(-200)));
-}
-
-const CORAL = "#E8795A";
-
-const GRADE_COLORS: Record<string, string> = {
-  A: "text-emerald-600 border-emerald-600/40 bg-emerald-50",
-  B: "text-lime-600 border-lime-600/40 bg-lime-50",
-  C: "text-amber-600 border-amber-600/40 bg-amber-50",
-  D: "text-orange-600 border-orange-600/40 bg-orange-50",
-  F: "text-red-600 border-red-600/40 bg-red-50",
-};
-
-function scoreColor(score: number) {
-  if (score >= 80) return "bg-emerald-500";
-  if (score >= 60) return "bg-amber-500";
-  return "bg-red-500";
 }
 
 function scoreText(score: number) {
@@ -54,37 +43,37 @@ function LaneCard({ lane }: { lane: Lane }) {
   const [open, setOpen] = useState(false);
   const failed = lane.checks.filter((c) => !c.passed).length;
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white shadow-sm">
+    <div className="rounded-2xl border border-border bg-surface shadow-sm">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center gap-4 px-5 py-4 text-left"
       >
         <div className="flex-1">
           <div className="flex items-baseline justify-between">
-            <span className="font-medium text-stone-900">{lane.title}</span>
-            <span className="text-sm tabular-nums text-stone-500">{lane.score}/100</span>
+            <span className="font-medium text-foreground">{lane.title}</span>
+            <span className="font-mono text-sm tabular-nums text-muted">{lane.score}/100</span>
           </div>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-stone-100">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border">
             <div
-              className={`h-full rounded-full ${scoreColor(lane.score)} transition-all duration-700`}
+              className={`h-full rounded-full ${lane.score >= 80 ? "bg-emerald-500" : lane.score >= 60 ? "bg-amber-500" : "bg-red-500"} transition-all duration-700`}
               style={{ width: `${lane.score}%` }}
             />
           </div>
         </div>
-        <span className="shrink-0 text-xs text-stone-400">
+        <span className="shrink-0 text-xs text-muted">
           {failed === 0 ? "all clear" : `${failed} issue${failed > 1 ? "s" : ""}`} {open ? "▾" : "▸"}
         </span>
       </button>
       {open && (
-        <ul className="border-t border-stone-100 px-5 py-3 text-sm">
+        <ul className="border-t border-border px-5 py-3 text-sm">
           {lane.checks.map((c) => (
             <li key={c.id} className="flex gap-3 py-1.5">
               <span className={c.passed ? "text-emerald-600" : "text-red-500"}>
                 {c.passed ? "✓" : "✕"}
               </span>
               <span>
-                <span className="text-stone-800">{c.label}</span>
-                <span className="text-stone-500"> — {c.detail}</span>
+                <span className="text-foreground">{c.label}</span>
+                <span className="text-muted"> — {c.detail}</span>
               </span>
             </li>
           ))}
@@ -98,36 +87,30 @@ function TrendBadge({ report, history }: { report: AuditReport; history: History
   const host = hostOf(report.finalUrl);
   const prior = history.filter((h) => h.host === host && h.at < report.fetchedAt);
   if (prior.length === 0) {
-    return <span className="text-xs text-stone-400">first audit of this domain</span>;
+    return <span className="text-xs text-muted">first scan of this domain</span>;
   }
   const last = prior[prior.length - 1];
   const delta = report.score - last.score;
-  const cls = delta > 0 ? "text-emerald-600" : delta < 0 ? "text-red-600" : "text-stone-400";
+  const cls = delta > 0 ? "text-emerald-600" : delta < 0 ? "text-red-600" : "text-muted";
   const arrow = delta > 0 ? "▲" : delta < 0 ? "▼" : "•";
   return (
     <span className={`text-xs font-medium ${cls}`}>
       {arrow} {delta === 0 ? "no change" : `${delta > 0 ? "+" : ""}${delta}`} vs{" "}
-      {new Date(last.at).toLocaleDateString()} ({prior.length + 1} audit
-      {prior.length + 1 > 1 ? "s" : ""} tracked)
+      {new Date(last.at).toLocaleDateString()} · {prior.length + 1} scans tracked
     </span>
   );
 }
 
 function ReportDetail({ report, history }: { report: AuditReport; history: HistoryEntry[] }) {
   return (
-    <div className="space-y-8">
-      <div className="flex items-center gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-        <div
-          className={`flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 text-4xl font-bold ${GRADE_COLORS[report.grade]}`}
-        >
-          {report.grade}
-        </div>
-        <div>
-          <p className="text-lg font-semibold text-stone-900">{report.score}/100 AI visibility</p>
-          <p className="mt-1 text-sm break-all text-stone-500">
-            {report.finalUrl} · audited {new Date(report.fetchedAt).toLocaleString()}
-          </p>
-          <p className="mt-1">
+    <div className="animate-sweep-in space-y-6">
+      <div className="flex flex-col items-center gap-4 rounded-3xl border border-border bg-surface px-6 py-8 shadow-sm sm:flex-row sm:justify-between">
+        <SignalGauge score={report.score} grade={report.grade} size={172} />
+        <div className="text-center sm:text-right">
+          <p className="text-lg font-semibold text-foreground">{report.score}/100 AI visibility</p>
+          <p className="mt-1 text-sm break-all text-muted">{report.finalUrl}</p>
+          <p className="mt-1 text-xs text-muted">{new Date(report.fetchedAt).toLocaleString()}</p>
+          <p className="mt-2">
             <TrendBadge report={report} history={history} />
           </p>
         </div>
@@ -140,9 +123,9 @@ function ReportDetail({ report, history }: { report: AuditReport; history: Histo
       </div>
 
       {report.topFixes.length > 0 && (
-        <div className="rounded-2xl border border-[#E8795A]/30 bg-[#E8795A]/[0.06] p-6">
-          <h2 className="font-semibold text-[#C85A3D]">Fix these first</h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-stone-700">
+        <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] p-6">
+          <h2 className="font-semibold text-accent-strong">Fix these first</h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-foreground/90">
             {report.topFixes.map((fix, i) => (
               <li key={i}>{fix}</li>
             ))}
@@ -157,18 +140,18 @@ function CompareTable({ reports }: { reports: AuditReport[] }) {
   const laneIds = reports[0].lanes.map((l) => ({ id: l.id, title: l.title }));
   const best = Math.max(...reports.map((r) => r.score));
   return (
-    <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-2xl border border-border bg-surface shadow-sm">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-stone-200 text-left">
-            <th className="px-5 py-4 font-medium text-stone-500">Lane</th>
+          <tr className="border-b border-border text-left">
+            <th className="px-5 py-4 font-medium text-muted">Lane</th>
             {reports.map((r) => (
               <th key={r.finalUrl} className="px-5 py-4">
-                <div className="font-semibold text-stone-900">{hostOf(r.finalUrl)}</div>
+                <div className="font-semibold text-foreground">{hostOf(r.finalUrl)}</div>
                 <div className={`mt-1 text-lg font-bold ${scoreText(r.score)}`}>
                   {r.grade} · {r.score}
                   {r.score === best && reports.length > 1 && (
-                    <span className="ml-2 rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">
+                    <span className="ml-2 rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">
                       LEADER
                     </span>
                   )}
@@ -183,15 +166,15 @@ function CompareTable({ reports }: { reports: AuditReport[] }) {
               ...reports.map((r) => r.lanes.find((l) => l.id === lane.id)?.score ?? 0)
             );
             return (
-              <tr key={lane.id} className="border-b border-stone-100 last:border-0">
-                <td className="px-5 py-3 text-stone-600">{lane.title}</td>
+              <tr key={lane.id} className="border-b border-border/60 last:border-0">
+                <td className="px-5 py-3 text-muted">{lane.title}</td>
                 {reports.map((r) => {
                   const s = r.lanes.find((l) => l.id === lane.id)?.score ?? 0;
                   return (
                     <td key={r.finalUrl} className="px-5 py-3">
                       <span className={`tabular-nums font-medium ${scoreText(s)}`}>{s}</span>
                       {s === laneBest && reports.length > 1 && s > 0 && (
-                        <span className="ml-1.5 text-emerald-500/70">▲</span>
+                        <span className="ml-1.5 text-emerald-600/70">▲</span>
                       )}
                     </td>
                   );
@@ -230,26 +213,26 @@ function MentionCard({ mention, brand }: { mention: Mention; brand: string }) {
   const [draft, setDraft] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
       <div className="flex items-baseline justify-between gap-4">
         <a
           href={mention.permalink}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-stone-900 transition hover:text-[#C85A3D]"
+          className="font-medium text-foreground transition hover:text-accent-strong"
         >
           {mention.title}
         </a>
-        <span className="shrink-0 text-xs text-stone-400">
+        <span className="shrink-0 text-xs text-muted">
           {mention.source} · ↑{mention.ups} · {mention.comments} comments
         </span>
       </div>
-      {mention.excerpt && <p className="mt-2 text-sm text-stone-500">{mention.excerpt}…</p>}
+      {mention.excerpt && <p className="mt-2 text-sm text-muted">{mention.excerpt}…</p>}
       <div className="mt-3">
         {draft === null ? (
           <button
             onClick={() => setDraft(draftReply(brand, mention))}
-            className="text-sm font-medium text-[#C85A3D] transition hover:text-[#E8795A]"
+            className="text-sm font-medium text-accent-strong transition hover:text-accent"
           >
             Draft a reply ▸
           </button>
@@ -259,7 +242,7 @@ function MentionCard({ mention, brand }: { mention: Mention; brand: string }) {
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               rows={6}
-              className="w-full rounded-xl border border-stone-300 bg-stone-50 p-3 text-sm text-stone-800 outline-none focus:border-[#E8795A]"
+              className="w-full rounded-xl border border-border bg-background p-3 text-sm text-foreground outline-none focus:border-accent"
             />
             <div className="flex items-center gap-3 text-sm">
               <button
@@ -268,11 +251,11 @@ function MentionCard({ mention, brand }: { mention: Mention; brand: string }) {
                   setCopied(true);
                   setTimeout(() => setCopied(false), 1500);
                 }}
-                className="rounded-full bg-[#E8795A] px-4 py-1.5 font-medium text-white transition hover:bg-[#DD6B4A]"
+                className="rounded-full bg-accent px-4 py-1.5 font-medium text-white transition hover:bg-accent-strong"
               >
                 {copied ? "Copied ✓" : "Copy draft"}
               </button>
-              <span className="text-xs text-stone-400">Edit before posting — disclosure stays in.</span>
+              <span className="text-xs text-muted">Edit before posting — disclosure stays in.</span>
             </div>
           </div>
         )}
@@ -308,10 +291,8 @@ function MentionWatch({ brand }: { brand: string }) {
 
   return (
     <section className="mt-16">
-      <h2 className="text-sm font-semibold tracking-widest text-stone-400 uppercase">
-        Mention watch
-      </h2>
-      <p className="mt-2 text-sm text-stone-500">
+      <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Mention watch</h2>
+      <p className="mt-2 text-sm text-muted">
         The threads AI engines learn from. Find where your brand is (or isn&apos;t) in the
         conversation, and draft a disclosed reply.
       </p>
@@ -320,13 +301,13 @@ function MentionWatch({ brand }: { brand: string }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="brand or topic"
-          className="min-w-0 flex-1 rounded-full border border-stone-300 bg-white px-5 py-3 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
+          className="min-w-0 flex-1 rounded-full border border-border bg-surface px-5 py-3 text-foreground placeholder-muted/60 shadow-sm outline-none transition focus:border-accent"
           spellCheck={false}
         />
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="rounded-full border border-[#E8795A]/50 px-5 py-3 font-medium text-[#C85A3D] transition hover:bg-[#E8795A]/10 disabled:opacity-40"
+          className="rounded-full border border-accent/50 px-5 py-3 font-medium text-accent-strong transition hover:bg-accent/10 disabled:opacity-40"
         >
           {loading ? "Scanning…" : "Scan communities"}
         </button>
@@ -341,12 +322,12 @@ function MentionWatch({ brand }: { brand: string }) {
       {mentions !== null && !error && (
         <div className="mt-4 space-y-3">
           {unavailable.length > 0 && (
-            <p className="text-xs text-stone-400">
+            <p className="text-xs text-muted">
               {unavailable.join(" and ")} unreachable right now — showing the rest.
             </p>
           )}
           {mentions.length === 0 ? (
-            <p className="rounded-2xl border border-stone-200 bg-white px-5 py-4 text-sm text-stone-600 shadow-sm">
+            <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-sm text-muted shadow-sm">
               No high-impact threads found for “{query}”. That itself is a visibility gap — the
               conversations AI learns from don&apos;t mention you yet.
             </p>
@@ -382,24 +363,6 @@ const FAQS = [
   },
 ];
 
-const FEATURES = [
-  {
-    title: "Graded audit",
-    body: "Paste a URL, get an A–F grade in seconds. Five weighted lanes, 26 checks, and a ranked fix list — the same lanes the Suede audit stack runs on production sites.",
-    tag: "Live",
-  },
-  {
-    title: "Competitor lens",
-    body: "Line your site up against two competitors, lane by lane. See who the engines can actually read, who has the schema, and who's winning citability.",
-    tag: "Live",
-  },
-  {
-    title: "Mention watch",
-    body: "See where your brand shows up in the conversations AI engines learn from — community threads, ranked by impact — and draft a disclosed reply.",
-    tag: "Live",
-  },
-];
-
 export default function Home() {
   const [urls, setUrls] = useState<string[]>([""]);
   const [loading, setLoading] = useState(false);
@@ -417,15 +380,14 @@ export default function Home() {
     setUrls((prev) => prev.map((u, idx) => (idx === i ? value : u)));
   }
 
-  async function audit(e: React.FormEvent) {
-    e.preventDefault();
-    if (filled.length === 0 || loading) return;
+  async function runAudit(targets: string[]) {
+    if (targets.length === 0 || loading) return;
     setLoading(true);
     setError(null);
     setReports([]);
     try {
       const results = await Promise.all(
-        filled.map(async (url) => {
+        targets.map(async (url) => {
           const res = await fetch("/api/audit", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -459,77 +421,101 @@ export default function Home() {
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 pb-24">
-      <header className="mt-6 flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-6 py-4 shadow-sm">
-        <span className="flex items-center gap-2 font-bold tracking-tight text-stone-900">
+      <header className="mt-6 flex items-center justify-between rounded-full border border-border bg-surface px-6 py-4 shadow-sm">
+        <span className="flex items-center gap-2 font-bold tracking-tight text-foreground">
           <span
             className="inline-block h-5 w-5 rounded-md"
-            style={{ background: `linear-gradient(135deg, ${CORAL}, #1c1917)` }}
+            style={{ background: "linear-gradient(135deg, var(--accent), #1c1917)" }}
           />
           Suede Signal
         </span>
-        <span className="text-xs text-stone-400">by Suede Labs</span>
+        <span className="text-xs text-muted">by Suede Labs</span>
       </header>
 
-      <section className="pt-16 pb-12 text-center">
-        <span className="inline-block rounded-full border border-stone-200 bg-white px-4 py-1.5 text-sm text-stone-600 shadow-sm">
-          <span className="font-semibold text-[#C85A3D]">Free</span> AI search visibility audit
+      <section className="relative pt-16 pb-12 text-center">
+        <OrbitIcons />
+        <span className="relative inline-block rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted shadow-sm">
+          <span className="font-semibold text-accent-strong">Free</span> AI search visibility audit
         </span>
-        <h1 className="mt-6 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+        <h1 className="relative mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           Become the brand
           <br />
-          <span className="text-[#E8795A]">AI recommends</span>
+          <span className="text-accent">AI recommends</span>
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-stone-600">
+        <p className="relative mx-auto mt-5 max-w-xl text-lg text-muted">
           ChatGPT, Claude, and Perplexity are the new front page. Paste your URL and get a graded
           audit in seconds — what the engines can read, what they&apos;ll cite, and exactly what to
           fix.
         </p>
-      </section>
 
-      <form onSubmit={audit} className="space-y-3">
-        {urls.map((u, i) => (
-          <div key={i} className="flex gap-3">
-            <input
-              value={u}
-              onChange={(e) => setUrl(i, e.target.value)}
-              placeholder={i === 0 ? "yourdomain.com" : `competitor${i}.com`}
-              className="min-w-0 flex-1 rounded-full border border-stone-300 bg-white px-6 py-3.5 text-stone-900 placeholder-stone-400 shadow-sm outline-none transition focus:border-[#E8795A]"
-              spellCheck={false}
-              autoFocus={i === 0}
-            />
-            {i === 0 ? (
-              <button
-                type="submit"
-                disabled={loading || filled.length === 0}
-                className="rounded-full bg-[#E8795A] px-7 py-3.5 font-semibold text-white shadow-sm transition hover:bg-[#DD6B4A] disabled:opacity-40"
-              >
-                {loading ? "Auditing…" : "Audit"}
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setUrls((prev) => prev.filter((_, idx) => idx !== i))}
-                className="rounded-full border border-stone-300 px-4 text-stone-400 transition hover:text-stone-700"
-                aria-label="Remove competitor"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        ))}
-        {urls.length < 3 && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            runAudit(filled);
+          }}
+          className="relative mt-8 space-y-3"
+        >
+          {urls.map((u, i) => (
+            <div key={i} className="flex gap-3">
+              <input
+                value={u}
+                onChange={(e) => setUrl(i, e.target.value)}
+                placeholder={i === 0 ? "yourdomain.com" : `competitor${i}.com`}
+                className="min-w-0 flex-1 rounded-full border border-border bg-surface px-6 py-3.5 text-foreground placeholder-muted/60 shadow-sm outline-none transition focus:border-accent"
+                spellCheck={false}
+                autoFocus={i === 0}
+              />
+              {i === 0 ? (
+                <button
+                  type="submit"
+                  disabled={loading || filled.length === 0}
+                  className="rounded-full bg-accent px-7 py-3.5 font-semibold text-white shadow-sm transition hover:bg-accent-strong disabled:opacity-40"
+                >
+                  {loading ? "Auditing…" : "Audit"}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setUrls((prev) => prev.filter((_, idx) => idx !== i))}
+                  className="rounded-full border border-border px-4 text-muted transition hover:text-foreground"
+                  aria-label="Remove competitor"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          ))}
+          {urls.length < 3 && (
+            <button
+              type="button"
+              onClick={() => setUrls((prev) => [...prev, ""])}
+              className="text-sm text-muted transition hover:text-accent-strong"
+            >
+              + Compare against a competitor
+            </button>
+          )}
+        </form>
+
+        <div className="relative mt-4 flex items-center justify-center gap-3">
           <button
             type="button"
-            onClick={() => setUrls((prev) => [...prev, ""])}
-            className="text-sm text-stone-500 transition hover:text-[#C85A3D]"
+            onClick={() => runAudit([EXAMPLE_DOMAIN])}
+            disabled={loading}
+            className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-40"
           >
-            + Compare against a competitor
+            See an example scan
           </button>
+        </div>
+
+        {reports.length === 0 && !loading && (
+          <div className="relative mt-8 flex justify-center">
+            <SignalGauge score={null} grade={null} size={200} />
+          </div>
         )}
-      </form>
+      </section>
 
       {loading && (
-        <p className="mt-6 animate-pulse text-center text-sm text-stone-500">
+        <p className="mt-2 animate-pulse text-center text-sm text-muted">
           Fetching {filled.length > 1 ? `${filled.length} sites` : "your page"} — robots.txt,
           llms.txt, and schema…
         </p>
@@ -543,7 +529,7 @@ export default function Home() {
 
       {reports.length > 1 && (
         <section className="mt-12 space-y-4">
-          <h2 className="text-sm font-semibold tracking-widest text-stone-400 uppercase">
+          <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
             Head to head
           </h2>
           <CompareTable reports={reports} />
@@ -556,7 +542,7 @@ export default function Home() {
             {reports.map((r) => (
               <div key={r.finalUrl}>
                 {reports.length > 1 && (
-                  <h3 className="mb-4 text-sm font-semibold tracking-widest text-stone-400 uppercase">
+                  <h3 className="mb-4 text-sm font-semibold tracking-wide text-muted uppercase">
                     {hostOf(r.finalUrl)}
                   </h3>
                 )}
@@ -570,93 +556,141 @@ export default function Home() {
 
       {reports.length === 0 && !loading && (
         <>
-          <section className="mt-24">
-            <h2 className="text-center text-2xl font-bold text-stone-900">
-              The front page moved. Your traffic strategy didn&apos;t.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-center text-stone-600">
-              AI engines answer with citations, not ten blue links. They cite sites they can crawl,
-              parse, and trust — and skip everyone else. Most sites fail at least one of the three
-              without knowing it.
-            </p>
-          </section>
-
-          <section className="mt-16 grid gap-4 sm:grid-cols-3">
-            {FEATURES.map((f) => (
-              <div key={f.title} className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-stone-900">{f.title}</h3>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                      f.tag === "Live" ? "bg-emerald-100 text-emerald-700" : "bg-stone-100 text-stone-500"
-                    }`}
-                  >
-                    {f.tag}
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-stone-600">{f.body}</p>
-              </div>
-            ))}
-          </section>
-
           <section className="mt-20">
-            <h2 className="text-center text-sm font-semibold tracking-widest text-stone-400 uppercase">
-              Pricing
+            <h2 className="text-center text-2xl font-bold text-foreground">
+              AI is the new search engine. Are you visible?
             </h2>
-            <div className="mx-auto mt-6 grid max-w-2xl gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border-2 border-[#E8795A]/40 bg-white p-6 shadow-sm">
-                <h3 className="font-semibold text-stone-900">Audit</h3>
-                <p className="mt-1 text-3xl font-bold text-[#C85A3D]">Free</p>
-                <ul className="mt-4 space-y-2 text-sm text-stone-600">
-                  <li>Unlimited on-demand audits</li>
-                  <li>Competitor comparison</li>
-                  <li>Mention watch + reply drafts</li>
-                  <li>Visibility history, saved to your browser</li>
-                  <li>Nothing stored on our servers, no signup</li>
-                </ul>
+            <p className="mx-auto mt-4 max-w-xl text-center text-muted">
+              ChatGPT, Perplexity, and Gemini pull answers from pages they can crawl, parse, and
+              trust — then cite the source. Everyone else gets skipped, and most sites fail at
+              least one of the three without knowing it.
+            </p>
+            <div className="mt-8">
+              <Marquee />
+            </div>
+          </section>
+
+          <section className="mt-20 space-y-16">
+            <div className="flex flex-col items-center gap-8 sm:flex-row">
+              <div className="flex-1">
+                <p className="text-xs font-semibold tracking-wide text-accent-strong uppercase">
+                  Graded scan
+                </p>
+                <h3 className="mt-2 text-2xl font-bold text-foreground">
+                  See exactly how AI ranks your brand
+                </h3>
+                <p className="mt-2 text-muted">
+                  Paste a URL, get an A–F grade in seconds. Five weighted lanes, 26 checks, and a
+                  ranked fix list — the same lanes the Suede audit stack runs on production sites.
+                </p>
               </div>
-              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-                <h3 className="font-semibold text-stone-900">Watch</h3>
-                <p className="mt-1 text-3xl font-bold text-stone-400">Coming soon</p>
-                <ul className="mt-4 space-y-2 text-sm text-stone-500">
-                  <li>Scheduled re-audits and drift alerts</li>
-                  <li>Automated brand mention tracking</li>
-                  <li>Cross-device history sync</li>
-                </ul>
+              <div className="flex flex-1 justify-center rounded-3xl border border-border bg-surface p-8 shadow-sm">
+                <SignalGauge score={87} grade="B" size={160} />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-8 sm:flex-row-reverse">
+              <div className="flex-1">
+                <p className="text-xs font-semibold tracking-wide text-accent-strong uppercase">
+                  Competitor lens
+                </p>
+                <h3 className="mt-2 text-2xl font-bold text-foreground">
+                  Find out who AI actually recommends
+                </h3>
+                <p className="mt-2 text-muted">
+                  Line your site up against two competitors, lane by lane. See who the engines can
+                  actually read, who has the schema, and who&apos;s winning citability.
+                </p>
+              </div>
+              <div className="flex-1 space-y-2 rounded-3xl border border-border bg-surface p-6 shadow-sm">
+                <div className="flex items-center justify-between rounded-xl bg-emerald-50 px-4 py-2.5 text-sm">
+                  <span className="font-medium text-foreground">yourbrand.com</span>
+                  <span className="font-semibold text-emerald-700">A · 92 LEADER</span>
+                </div>
+                <div className="flex items-center justify-between rounded-xl bg-background px-4 py-2.5 text-sm">
+                  <span className="font-medium text-foreground">competitor.com</span>
+                  <span className="font-semibold text-amber-700">C · 71</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-8 sm:flex-row">
+              <div className="flex-1">
+                <p className="text-xs font-semibold tracking-wide text-accent-strong uppercase">
+                  Mention watch
+                </p>
+                <h3 className="mt-2 text-2xl font-bold text-foreground">
+                  Listen before AI does
+                </h3>
+                <p className="mt-2 text-muted">
+                  See where your brand shows up in the conversations AI engines learn from —
+                  community threads, ranked by impact — and draft a disclosed reply.
+                </p>
+              </div>
+              <div className="flex-1 rounded-3xl border border-border bg-surface p-5 shadow-sm">
+                <p className="font-medium text-foreground">
+                  Best AI visibility tool for a small team?
+                </p>
+                <p className="mt-1 text-xs text-muted">r/SaaS · ↑142 · 38 comments</p>
+                <p className="mt-3 text-xs font-medium text-accent-strong">Draft a reply ▸</p>
               </div>
             </div>
           </section>
 
           <section className="mt-20">
-            <h2 className="text-center text-sm font-semibold tracking-widest text-stone-400 uppercase">
+            <h2 className="text-center text-sm font-semibold tracking-wide text-muted uppercase">
+              Pricing
+            </h2>
+            <div className="mx-auto mt-6 max-w-lg rounded-3xl border-2 border-accent/40 bg-surface p-6 shadow-sm">
+              <div className="flex items-baseline justify-between">
+                <h3 className="font-semibold text-foreground">Audit</h3>
+                <p className="text-3xl font-bold text-accent-strong">Free</p>
+              </div>
+              <ul className="mt-4 space-y-2 text-sm text-muted">
+                <li>Unlimited on-demand audits</li>
+                <li>Competitor comparison</li>
+                <li>Mention watch + reply drafts</li>
+                <li>Visibility history, saved to your browser</li>
+                <li>Nothing stored on our servers, no signup</li>
+              </ul>
+            </div>
+            <p className="mt-4 text-center text-sm text-muted">
+              Watch (scheduled re-audits, drift alerts, cross-device sync) — coming soon.
+            </p>
+          </section>
+
+          <section className="mt-20">
+            <h2 className="text-center text-sm font-semibold tracking-wide text-muted uppercase">
               Questions
             </h2>
             <div className="mt-6 space-y-2">
               {FAQS.map((f) => (
                 <details
                   key={f.q}
-                  className="group rounded-2xl border border-stone-200 bg-white px-5 py-4 shadow-sm"
+                  className="group rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm"
                 >
-                  <summary className="cursor-pointer list-none font-medium text-stone-900 marker:content-none">
-                    <span className="mr-2 inline-block text-stone-400 transition group-open:rotate-90">
+                  <summary className="cursor-pointer list-none font-medium text-foreground marker:content-none">
+                    <span className="mr-2 inline-block text-muted transition group-open:rotate-90">
                       ▸
                     </span>
                     {f.q}
                   </summary>
-                  <p className="mt-3 pl-6 text-sm leading-relaxed text-stone-600">{f.a}</p>
+                  <p className="mt-3 pl-6 text-sm leading-relaxed text-muted">{f.a}</p>
                 </details>
               ))}
             </div>
           </section>
 
-          <section className="mt-20 rounded-3xl bg-stone-900 p-10 text-center">
-            <h2 className="text-2xl font-bold text-white">Find out if you&apos;re the answer</h2>
-            <p className="mt-2 text-stone-400">Free, instant, nothing stored.</p>
+          <section className="mt-20 rounded-3xl bg-foreground p-10 text-center">
+            <h2 className="text-2xl font-bold text-background">
+              Find out if you&apos;re the answer
+            </h2>
+            <p className="mt-2 text-background/70">Free, instant, nothing stored.</p>
             <button
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="mt-6 rounded-full bg-[#E8795A] px-8 py-3.5 font-semibold text-white transition hover:bg-[#DD6B4A]"
+              className="mt-6 rounded-full bg-accent px-8 py-3.5 font-semibold text-white transition hover:bg-accent-strong"
             >
               Run your free audit
             </button>
@@ -664,7 +698,7 @@ export default function Home() {
         </>
       )}
 
-      <footer className="mt-24 border-t border-stone-200 pt-6 text-center text-xs text-stone-400">
+      <footer className="mt-24 border-t border-border pt-6 text-center text-xs text-muted">
         Suede Signal runs read-only checks against your public pages. Nothing is stored.
       </footer>
     </main>
