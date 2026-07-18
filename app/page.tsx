@@ -5,6 +5,9 @@ import type { AuditReport, Lane } from "@/lib/audit";
 import { SignalGauge } from "@/app/components/SignalGauge";
 import { OrbitIcons } from "@/app/components/OrbitIcons";
 import { Marquee } from "@/app/components/Marquee";
+import { AgentFlowPreview } from "@/app/components/AgentFlowPreview";
+
+const AGENT_STUDIO_URL = "https://agents.suedeai.ai";
 
 const EXAMPLE_DOMAIN = "suedeai.ai";
 
@@ -332,7 +335,25 @@ function MentionWatch({ brand }: { brand: string }) {
               conversations AI learns from don&apos;t mention you yet.
             </p>
           ) : (
-            mentions.map((m) => <MentionCard key={m.id} mention={m} brand={brand} />)
+            <>
+              {mentions.map((m) => (
+                <MentionCard key={m.id} mention={m} brand={brand} />
+              ))}
+              <div className="flex flex-col items-start gap-3 rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-foreground/90">
+                  Found {mentions.length} live thread{mentions.length > 1 ? "s" : ""} to work by
+                  hand. Build the scan-draft-approve loop as an agent instead.
+                </p>
+                <a
+                  href={AGENT_STUDIO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 text-sm font-semibold text-accent-strong transition hover:text-accent"
+                >
+                  Open Suede Agent Studio ↗
+                </a>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -360,6 +381,10 @@ const FAQS = [
   {
     q: "Can I compare against competitors?",
     a: "Yes — add up to two competitor URLs and you get a lane-by-lane comparison showing exactly where you lead and where you're losing the answer.",
+  },
+  {
+    q: "Can I automate Mention Watch instead of doing it by hand?",
+    a: "Yes — build the same scan-draft-approve loop as a live agent in Suede Agent Studio, our visual agent builder. It scans Reddit, X, LinkedIn, and Discord on a schedule, drafts in your brand voice, and queues every reply for your approval before anything posts.",
   },
 ];
 
@@ -429,7 +454,17 @@ export default function Home() {
           />
           Suede Signal
         </span>
-        <span className="text-xs text-muted">by Suede Labs</span>
+        <div className="flex items-center gap-4">
+          <a
+            href={AGENT_STUDIO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden text-xs font-medium text-accent-strong transition hover:text-accent sm:inline"
+          >
+            Suede Agent Studio ↗
+          </a>
+          <span className="text-xs text-muted">by Suede Labs</span>
+        </div>
       </header>
 
       <section className="relative pt-16 pb-12 text-center">
@@ -633,6 +668,34 @@ export default function Home() {
                 </p>
                 <p className="mt-1 text-xs text-muted">r/SaaS · ↑142 · 38 comments</p>
                 <p className="mt-3 text-xs font-medium text-accent-strong">Draft a reply ▸</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-8 sm:flex-row-reverse">
+              <div className="flex-1">
+                <p className="text-xs font-semibold tracking-wide text-accent-strong uppercase">
+                  Suede Agent Studio
+                </p>
+                <h3 className="mt-2 text-2xl font-bold text-foreground">
+                  Turn Mention Watch into an agent that runs itself
+                </h3>
+                <p className="mt-2 text-muted">
+                  Draft-and-copy works one thread at a time. Build the same scan-draft-approve
+                  loop as a live agent in Suede Agent Studio — scheduled across Reddit, X,
+                  LinkedIn, and Discord, drafting replies in your brand voice, and queued for your
+                  approval before anything ever posts.
+                </p>
+                <a
+                  href={AGENT_STUDIO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition hover:opacity-90"
+                >
+                  Build this agent ↗
+                </a>
+              </div>
+              <div className="flex-1 rounded-3xl border border-border bg-surface p-6 shadow-sm">
+                <AgentFlowPreview />
               </div>
             </div>
           </section>
