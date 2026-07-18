@@ -4,22 +4,22 @@
 
 ## Product
 
-- [Run an audit](https://suede-signal.vercel.app/): the free audit, competitor comparison, and Mention Watch
-- [Documentation](https://suede-signal.vercel.app/docs): what the audit is, how it works, and what it can't promise
-- [Scoring & lanes](https://suede-signal.vercel.app/docs/scoring): all 26 checks, lane weights, and grade bands
-- [Fix guide](https://suede-signal.vercel.app/docs/fixes): copy-pasteable fixes for every failing check
-- [Mention Watch](https://suede-signal.vercel.app/docs/mention-watch): finding and joining the community threads AI learns from
-- [API reference](https://suede-signal.vercel.app/docs/api): POST /api/audit and GET /api/mentions
-- [FAQ](https://suede-signal.vercel.app/docs/faq): common questions, including what a high score does and doesn't guarantee
+- [Run an audit](https://signal.suedeai.ai/): the free audit, competitor comparison, and Mention Watch
+- [Documentation](https://signal.suedeai.ai/docs): what the audit is, how it works, and what it can't promise
+- [Scoring & lanes](https://signal.suedeai.ai/docs/scoring): all 26 checks, lane weights, and grade bands
+- [Fix guide](https://signal.suedeai.ai/docs/fixes): copy-pasteable fixes for every failing check
+- [Mention Watch](https://signal.suedeai.ai/docs/mention-watch): finding and joining the community threads AI learns from
+- [API reference](https://signal.suedeai.ai/docs/api): POST /api/audit and GET /api/mentions
+- [FAQ](https://signal.suedeai.ai/docs/faq): common questions, including what a high score does and doesn't guarantee
 
 ## Articles
 
-- [What Is llms.txt and Should Your Site Have One?](https://suede-signal.vercel.app/articles/what-is-llms-txt): the proposal, the format, and an honest read on adoption
-- [Which AI Crawlers Should You Allow?](https://suede-signal.vercel.app/articles/which-ai-crawlers-to-allow): GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, and the retrieval agents people forget
-- [How JSON-LD Helps AI Engines Understand Your Brand](https://suede-signal.vercel.app/articles/json-ld-for-ai-visibility): entity schema, FAQ markup, and the anti-patterns to skip
-- [How to Write Passages AI Answer Engines Can Quote](https://suede-signal.vercel.app/articles/citable-passages): answer-first structure with before/after rewrites
-- [AI Visibility Extends SEO, It Does Not Replace It](https://suede-signal.vercel.app/articles/ai-visibility-vs-seo): what carries over, what changes, what to measure
-- [Where AI Engines Learn What People Think About Brands](https://suede-signal.vercel.app/articles/where-ai-engines-learn-about-brands): community threads, licensing deals, and disclosure-first participation
+- [What Is llms.txt and Should Your Site Have One?](https://signal.suedeai.ai/articles/what-is-llms-txt): the proposal, the format, and an honest read on adoption
+- [Which AI Crawlers Should You Allow?](https://signal.suedeai.ai/articles/which-ai-crawlers-to-allow): GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, and the retrieval agents people forget
+- [How JSON-LD Helps AI Engines Understand Your Brand](https://signal.suedeai.ai/articles/json-ld-for-ai-visibility): entity schema, FAQ markup, and the anti-patterns to skip
+- [How to Write Passages AI Answer Engines Can Quote](https://signal.suedeai.ai/articles/citable-passages): answer-first structure with before/after rewrites
+- [AI Visibility Extends SEO, It Does Not Replace It](https://signal.suedeai.ai/articles/ai-visibility-vs-seo): what carries over, what changes, what to measure
+- [Where AI Engines Learn What People Think About Brands](https://signal.suedeai.ai/articles/where-ai-engines-learn-about-brands): community threads, licensing deals, and disclosure-first participation
 
 ## Company
 

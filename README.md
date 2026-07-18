@@ -20,7 +20,7 @@ Weighted lane scores roll up to an overall 0–100 score and A–F grade, plus a
 
 The site ships its own documentation and content sections:
 
-- `/docs` — overview, [scoring methodology](https://suede-signal.vercel.app/docs/scoring), [fix guide](https://suede-signal.vercel.app/docs/fixes), [Mention Watch](https://suede-signal.vercel.app/docs/mention-watch), [API reference](https://suede-signal.vercel.app/docs/api), and [FAQ](https://suede-signal.vercel.app/docs/faq)
+- `/docs` — overview, [scoring methodology](https://signal.suedeai.ai/docs/scoring), [fix guide](https://signal.suedeai.ai/docs/fixes), [Mention Watch](https://signal.suedeai.ai/docs/mention-watch), [API reference](https://signal.suedeai.ai/docs/api), and [FAQ](https://signal.suedeai.ai/docs/faq)
 - `/articles` — six practitioner guides (llms.txt, AI crawler policy, JSON-LD, citable passages, AI visibility vs SEO, community mentions), stored as markdown in `lib/articles.ts` and rendered server-side
 - `/sitemap.xml`, `/robots.txt`, and `/llms.txt` are generated/served so the site passes its own audit
 

@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://suede-signal.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://signal.suedeai.ai";
 
 export const SITE_NAME = "Suede Signal";
 
