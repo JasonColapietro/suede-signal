@@ -454,16 +454,22 @@ export default function Home() {
           />
           Suede Signal
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 text-xs font-medium">
+          <a href="/docs" className="text-muted transition hover:text-foreground">
+            Docs
+          </a>
+          <a href="/articles" className="text-muted transition hover:text-foreground">
+            Articles
+          </a>
           <a
             href={AGENT_STUDIO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden text-xs font-medium text-accent-strong transition hover:text-accent sm:inline"
+            className="hidden text-accent-strong transition hover:text-accent sm:inline"
           >
             Suede Agent Studio ↗
           </a>
-          <span className="text-xs text-muted">by Suede Labs</span>
+          <span className="hidden text-muted sm:inline">by Suede Labs</span>
         </div>
       </header>
 
@@ -761,8 +767,27 @@ export default function Home() {
         </>
       )}
 
-      <footer className="mt-24 border-t border-border pt-6 text-center text-xs text-muted">
-        Suede Signal runs read-only checks against your public pages. Nothing is stored.
+      <footer className="mt-24 border-t border-border pt-6 text-xs text-muted">
+        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <a href="/docs" className="transition hover:text-foreground">
+            Docs
+          </a>
+          <a href="/docs/api" className="transition hover:text-foreground">
+            API
+          </a>
+          <a href="/articles" className="transition hover:text-foreground">
+            Articles
+          </a>
+          <a href="/docs/faq" className="transition hover:text-foreground">
+            FAQ
+          </a>
+          <a href="mailto:hello@suedeai.ai" className="transition hover:text-foreground">
+            Contact
+          </a>
+        </nav>
+        <p className="mt-4 text-center">
+          Suede Signal runs read-only checks against your public pages. Nothing is stored.
+        </p>
       </footer>
     </main>
   );
