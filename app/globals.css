@@ -2,10 +2,9 @@
 
 /*
   Suede Signal — light, off-white surface with a black/coral two-tone
-  action system. Visual grammar (rounded-pill nav, badge-over-headline,
+  action system. Visual grammar: rounded-pill nav, badge-over-headline,
   floating connector icons, black+coral CTA pairing, alternating feature
-  panels, scrolling query ticker) is adapted from crowdreply.io's layout
-  DNA; palette values, copy, product screenshots, and claims are our own.
+  panels, scrolling query ticker.
 */
 :root {
   --background: #faf9f7;

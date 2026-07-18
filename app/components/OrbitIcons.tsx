@@ -1,8 +1,7 @@
-// Floating badges around the hero — the layout device crowdreply uses
-// for platform logos. Ours name the actual AI crawler user-agents the
-// audit checks (real, verifiable), not logos. Full-bleed positioned so
-// they sit in the page margins beside the narrow content column, not on
-// top of it.
+// Floating badges around the hero, naming the actual AI crawler
+// user-agents the audit checks (real, verifiable), not logos. Full-bleed
+// positioned so they sit in the page margins beside the narrow content
+// column, not on top of it.
 
 const NODES = [
   { label: "GPTBot", x: 4, y: 12 },
