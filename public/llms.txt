@@ -1,0 +1,27 @@
+# Suede Signal
+
+> Suede Signal is a free, instant AI-visibility audit by Suede Labs. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). 26 deterministic checks, no signup, nothing stored.
+
+## Product
+
+- [Run an audit](https://suede-signal.vercel.app/): the free audit, competitor comparison, and Mention Watch
+- [Documentation](https://suede-signal.vercel.app/docs): what the audit is, how it works, and what it can't promise
+- [Scoring & lanes](https://suede-signal.vercel.app/docs/scoring): all 26 checks, lane weights, and grade bands
+- [Fix guide](https://suede-signal.vercel.app/docs/fixes): copy-pasteable fixes for every failing check
+- [Mention Watch](https://suede-signal.vercel.app/docs/mention-watch): finding and joining the community threads AI learns from
+- [API reference](https://suede-signal.vercel.app/docs/api): POST /api/audit and GET /api/mentions
+- [FAQ](https://suede-signal.vercel.app/docs/faq): common questions, including what a high score does and doesn't guarantee
+
+## Articles
+
+- [What Is llms.txt and Should Your Site Have One?](https://suede-signal.vercel.app/articles/what-is-llms-txt): the proposal, the format, and an honest read on adoption
+- [Which AI Crawlers Should You Allow?](https://suede-signal.vercel.app/articles/which-ai-crawlers-to-allow): GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, and the retrieval agents people forget
+- [How JSON-LD Helps AI Engines Understand Your Brand](https://suede-signal.vercel.app/articles/json-ld-for-ai-visibility): entity schema, FAQ markup, and the anti-patterns to skip
+- [How to Write Passages AI Answer Engines Can Quote](https://suede-signal.vercel.app/articles/citable-passages): answer-first structure with before/after rewrites
+- [AI Visibility Extends SEO, It Does Not Replace It](https://suede-signal.vercel.app/articles/ai-visibility-vs-seo): what carries over, what changes, what to measure
+- [Where AI Engines Learn What People Think About Brands](https://suede-signal.vercel.app/articles/where-ai-engines-learn-about-brands): community threads, licensing deals, and disclosure-first participation
+
+## Company
+
+- [Suede Labs](https://suedeai.ai): the studio behind Suede Signal
+- [Suede Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
