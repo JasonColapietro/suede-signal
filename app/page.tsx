@@ -267,6 +267,102 @@ function MentionCard({ mention, brand }: { mention: Mention; brand: string }) {
   );
 }
 
+function BuildAgentButton({
+  brand,
+  mention,
+  mentionCount,
+}: {
+  brand: string;
+  mention: Mention;
+  mentionCount: number;
+}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{ flowId: string; ownerKey: string; flowsUrl: string } | null>(
+    null
+  );
+  const [copied, setCopied] = useState(false);
+
+  async function build() {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/agent-studio/create-flow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brand,
+          mention: { title: mention.title, excerpt: mention.excerpt, source: mention.source },
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not create the agent.");
+      setResult(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not create the agent.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (result) {
+    return (
+      <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4">
+        <p className="text-sm font-medium text-foreground">
+          Agent created in Suede Agent Studio — it drafts replies with a real Claude call,
+          seeded from &quot;{mention.title}&quot;.
+        </p>
+        <p className="mt-1 text-xs text-muted">
+          Paste this workspace key into the &quot;Claim a workspace on this device&quot; box on
+          the Flows page to open it. Treat it like a password — it&apos;s the only way in.
+        </p>
+        <div className="mt-3 flex items-center gap-2">
+          <code className="min-w-0 flex-1 truncate rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground">
+            {result.ownerKey}
+          </code>
+          <button
+            onClick={async () => {
+              await navigator.clipboard.writeText(result.ownerKey);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            }}
+            className="shrink-0 rounded-lg bg-accent px-3 py-2 text-xs font-medium text-white transition hover:bg-accent-strong"
+          >
+            {copied ? "Copied ✓" : "Copy key"}
+          </button>
+        </div>
+        <a
+          href={result.flowsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-block text-sm font-semibold text-accent-strong transition hover:text-accent"
+        >
+          Open Suede Agent Studio ↗
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-start gap-3 rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-sm text-foreground/90">
+        Found {mentionCount} live thread{mentionCount > 1 ? "s" : ""} to work by hand. Build a
+        real reply-drafting agent from &quot;{mention.title}&quot; instead.
+      </p>
+      <div className="flex shrink-0 flex-col items-start gap-1 sm:items-end">
+        <button
+          onClick={build}
+          disabled={loading}
+          className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background transition hover:opacity-90 disabled:opacity-50"
+        >
+          {loading ? "Building…" : "Build this agent →"}
+        </button>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+      </div>
+    </div>
+  );
+}
+
 function MentionWatch({ brand }: { brand: string }) {
   const [query, setQuery] = useState(brand);
   const [mentions, setMentions] = useState<Mention[] | null>(null);
@@ -293,7 +389,7 @@ function MentionWatch({ brand }: { brand: string }) {
   }
 
   return (
-    <section className="mt-16">
+    <section id="mention-watch" className="mt-16 scroll-mt-8">
       <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Mention watch</h2>
       <p className="mt-2 text-sm text-muted">
         The threads AI engines learn from. Find where your brand is (or isn&apos;t) in the
@@ -339,20 +435,7 @@ function MentionWatch({ brand }: { brand: string }) {
               {mentions.map((m) => (
                 <MentionCard key={m.id} mention={m} brand={brand} />
               ))}
-              <div className="flex flex-col items-start gap-3 rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-foreground/90">
-                  Found {mentions.length} live thread{mentions.length > 1 ? "s" : ""} to work by
-                  hand. Build the scan-draft-approve loop as an agent instead.
-                </p>
-                <a
-                  href={AGENT_STUDIO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-sm font-semibold text-accent-strong transition hover:text-accent"
-                >
-                  Open Suede Agent Studio ↗
-                </a>
-              </div>
+              <BuildAgentButton brand={brand} mention={mentions[0]} mentionCount={mentions.length} />
             </>
           )}
         </div>
@@ -384,7 +467,7 @@ const FAQS = [
   },
   {
     q: "Can I automate Mention Watch instead of doing it by hand?",
-    a: "Yes — build the same scan-draft-approve loop as a live agent in Suede Agent Studio, our visual agent builder. It scans Reddit, X, LinkedIn, and Discord on a schedule, drafts in your brand voice, and queues every reply for your approval before anything posts.",
+    a: "Partly. After a scan, \"Build this agent\" creates a real agent in Suede Agent Studio, our visual agent builder — it drafts the reply with an actual Claude call instead of a template, seeded from the thread you found. Scanning and posting still happen by hand; Agent Studio doesn't yet have a node that can search social platforms or post to them.",
   },
 ];
 
@@ -490,11 +573,12 @@ export default function Home() {
         </p>
 
         <form
+          id="audit-form"
           onSubmit={(e) => {
             e.preventDefault();
             runAudit(filled);
           }}
-          className="relative mt-8 space-y-3"
+          className="relative mt-8 scroll-mt-8 space-y-3"
         >
           {urls.map((u, i) => (
             <div key={i} className="flex gap-3">
@@ -683,21 +767,20 @@ export default function Home() {
                   Suede Agent Studio
                 </p>
                 <h3 className="mt-2 text-2xl font-bold text-foreground">
-                  Turn Mention Watch into an agent that runs itself
+                  Turn a found thread into a real drafting agent
                 </h3>
                 <p className="mt-2 text-muted">
-                  Draft-and-copy works one thread at a time. Build the same scan-draft-approve
-                  loop as a live agent in Suede Agent Studio — scheduled across Reddit, X,
-                  LinkedIn, and Discord, drafting replies in your brand voice, and queued for your
-                  approval before anything ever posts.
+                  Run an audit, then scan for mentions and hit &quot;Build this agent&quot; on
+                  the results. It creates a real flow in Suede Agent Studio — an actual Claude
+                  call that drafts the reply, seeded from the thread you found. Scanning and
+                  posting still happen by hand; there&apos;s no node yet that can search or post
+                  to social platforms.
                 </p>
                 <a
-                  href={AGENT_STUDIO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#audit-form"
                   className="mt-4 inline-block rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition hover:opacity-90"
                 >
-                  Build this agent ↗
+                  Run an audit ↓
                 </a>
               </div>
               <div className="flex-1 rounded-3xl border border-border bg-surface p-6 shadow-sm">

@@ -1,11 +1,13 @@
-// The Mention Watch pipeline, drawn as the agent graph it becomes once
-// it's built in Suede Agent Studio — scan, draft, approve, post.
+// The real Mention Watch -> Agent Studio pipeline as it exists today.
+// Scanning and posting are still manual — Agent Studio has no node that
+// can search social platforms or post to them. Only the draft step is a
+// real agent: an actual Claude call in a live Agent Studio flow.
 
 const STEPS = [
-  { label: "Scan", detail: "Reddit, X, LinkedIn, Discord — on a schedule, not on demand" },
-  { label: "Draft", detail: "Brand-voice reply, disclosure written in by default" },
-  { label: "Approve", detail: "Queued for you — nothing posts without a human okay" },
-  { label: "Post & track", detail: "Logged with a permalink and fed back into Signal" },
+  { label: "Scan", detail: "Suede Signal searches Reddit and Hacker News for you, on demand" },
+  { label: "Draft", detail: "A real agent in Suede Agent Studio drafts the reply — an actual Claude call, not a template" },
+  { label: "Review", detail: "You read it, edit it, add anything only you'd know" },
+  { label: "Post", detail: "You paste it in yourself — no auto-poster yet" },
 ];
 
 export function AgentFlowPreview() {
@@ -21,7 +23,7 @@ export function AgentFlowPreview() {
           )}
           <span
             className={`z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border font-mono text-xs font-semibold ${
-              i === 2
+              i === 1
                 ? "border-accent bg-accent/10 text-accent-strong"
                 : "border-border bg-surface text-muted"
             }`}
