@@ -552,7 +552,7 @@ export default function Home() {
           >
             Suede Agent Studio ↗
           </a>
-          <span className="hidden text-muted sm:inline">by Suede Labs</span>
+          <span className="hidden text-muted sm:inline">by Suede Labs AI</span>
         </div>
       </header>
 
@@ -562,13 +562,13 @@ export default function Home() {
           <span className="font-semibold text-accent-strong">Free</span> AI search visibility audit
         </span>
         <h1 className="relative mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          Become the brand
+          Make your site legible
           <br />
-          <span className="text-accent">AI recommends</span>
+          <span className="text-accent">to AI answer engines</span>
         </h1>
         <p className="relative mx-auto mt-5 max-w-xl text-lg text-muted">
           ChatGPT, Claude, and Perplexity are the new front page. Paste your URL and get a graded
-          audit in seconds — what the engines can read, what they&apos;ll cite, and exactly what to
+          audit in seconds — what the engines can read, what&apos;s missing, and exactly what to
           fix.
         </p>
 
@@ -702,7 +702,7 @@ export default function Home() {
                   Graded scan
                 </p>
                 <h3 className="mt-2 text-2xl font-bold text-foreground">
-                  See exactly how AI ranks your brand
+                  See what answer engines can actually read on your site
                 </h3>
                 <p className="mt-2 text-muted">
                   Paste a URL, get an A–F grade in seconds. Five weighted lanes, 26 checks, and a
@@ -720,7 +720,7 @@ export default function Home() {
                   Competitor lens
                 </p>
                 <h3 className="mt-2 text-2xl font-bold text-foreground">
-                  Find out who AI actually recommends
+                  Compare AI-readiness against your competitors
                 </h3>
                 <p className="mt-2 text-muted">
                   Line your site up against two competitors, lane by lane. See who the engines can

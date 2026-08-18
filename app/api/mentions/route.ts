@@ -55,7 +55,7 @@ async function fetchJson(url: string, headers: Record<string, string>, timeoutMs
 async function searchReddit(q: string): Promise<Mention[] | null> {
   const json = await fetchJson(
     `https://www.reddit.com/search.json?q=${encodeURIComponent(q)}&sort=relevance&t=year&limit=25`,
-    { "User-Agent": "web:suede-signal:1.0 (AI visibility audit; by Suede Labs)", Accept: "application/json" }
+    { "User-Agent": "web:suede-signal:1.0 (AI visibility audit; by Suede Labs AI)", Accept: "application/json" }
   );
   if (!json?.data?.children) return null;
   return (json.data.children as RedditChild[]).map((c) => ({

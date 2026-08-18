@@ -15,17 +15,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Suede Signal — Become the Brand AI Recommends",
+  title: "Suede Signal — AI-readiness audit for answer engines",
   description:
-    "Free AI-visibility audit. See what ChatGPT, Claude, and Perplexity can read on your site, what they'll cite, and exactly what to fix.",
+    "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Suede Signal — Become the Brand AI Recommends",
+    title: "Suede Signal — AI-readiness audit for answer engines",
     description:
-      "Free AI-visibility audit. See what ChatGPT, Claude, and Perplexity can read on your site, what they'll cite, and exactly what to fix.",
+      "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
     url: SITE_URL,
     siteName: "Suede Signal",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Suede Signal — AI-readiness audit for answer engines",
+    description:
+      "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
   },
 };
 
@@ -35,7 +41,7 @@ const orgSchema = {
     {
       "@type": "Organization",
       "@id": "https://suedeai.ai/#organization",
-      name: "Suede Labs",
+      name: "Suede Labs AI",
       url: "https://suedeai.ai",
       sameAs: ["https://agents.suedeai.ai", "https://github.com/JasonColapietro"],
     },
