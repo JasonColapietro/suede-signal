@@ -42,7 +42,7 @@ The full check list, weights, and grade bands are documented in [Scoring & lanes
 
 ## Who builds this?
 
-Suede Signal is a free tool by [Suede Labs](https://suedeai.ai), the studio behind [Suede Agent Studio](https://agents.suedeai.ai) — a visual builder that turns workflows like the Mention Watch loop into scheduled agents with human approval gates.
+Suede Signal is a free tool by [Suede Labs AI](https://suedeai.ai), the studio behind [Suede Agent Studio](https://agents.suedeai.ai) — a visual builder that turns workflows like the Mention Watch loop into scheduled agents with human approval gates.
 `;
 
 export default function DocsOverview() {

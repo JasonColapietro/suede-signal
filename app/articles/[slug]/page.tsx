@@ -43,8 +43,8 @@ export default async function ArticlePage({ params }: Props) {
     datePublished: article.date,
     dateModified: article.date,
     mainEntityOfPage: `${SITE_URL}/articles/${article.slug}`,
-    author: { "@type": "Organization", name: "Suede Labs", url: "https://suedeai.ai" },
-    publisher: { "@type": "Organization", name: "Suede Labs", url: "https://suedeai.ai" },
+    author: { "@type": "Organization", name: "Suede Labs AI", url: "https://suedeai.ai" },
+    publisher: { "@type": "Organization", name: "Suede Labs AI", url: "https://suedeai.ai" },
   };
 
   return (
@@ -72,7 +72,7 @@ export default async function ArticlePage({ params }: Props) {
               timeZone: "UTC",
             })}
           </time>{" "}
-          · {article.readingMinutes} min read · Suede Labs
+          · {article.readingMinutes} min read · Suede Labs AI
         </p>
         <div
           className="prose-suede mt-8"
