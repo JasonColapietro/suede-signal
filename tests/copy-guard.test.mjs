@@ -106,3 +106,13 @@ test("root JSON-LD Organization declares the canonical name", () => {
   assert.match(layout, /"@id":\s*"https:\/\/suedeai\.ai\/#organization"/);
   assert.match(layout, /name:\s*"Suede Labs AI"/);
 });
+
+test("root metadata publishes a generated social preview image", () => {
+  const layout = readFileSync(join(ROOT, "app", "layout.tsx"), "utf8");
+  const image = readFileSync(join(ROOT, "app", "opengraph-image.tsx"), "utf8");
+
+  assert.equal((layout.match(/images:\s*\["\/opengraph-image"\]/g) || []).length, 2);
+  assert.match(image, /width:\s*1200/);
+  assert.match(image, /height:\s*630/);
+  assert.match(image, /ImageResponse/);
+});

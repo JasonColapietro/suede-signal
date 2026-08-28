@@ -26,12 +26,14 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Suede Signal",
     type: "website",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Suede Signal — AI-readiness audit for answer engines",
     description:
       "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
+    images: ["/opengraph-image"],
   },
 };
 
