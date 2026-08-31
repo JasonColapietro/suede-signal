@@ -43,7 +43,15 @@ const orgSchema = {
       "@id": "https://suedeai.ai/#organization",
       name: "Suede Labs AI",
       url: "https://suedeai.ai",
-      sameAs: ["https://agents.suedeai.ai", "https://github.com/JasonColapietro"],
+      foundingDate: "2024",
+      sameAs: [
+        "https://suedeai.org/",
+        "https://github.com/Suede-AI",
+        "https://x.com/AISUEDE",
+        "https://www.crunchbase.com/organization/suede-labs-ai",
+        "https://www.linkedin.com/company/suede-labs-ai",
+        "https://www.wikidata.org/wiki/Q141169484",
+      ],
     },
     {
       "@type": "WebSite",
