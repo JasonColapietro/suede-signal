@@ -88,11 +88,13 @@ export default function FaqPage() {
             key={f.q}
             className="group rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm"
           >
-            <summary className="cursor-pointer list-none font-medium text-foreground marker:content-none">
-              <span className="mr-2 inline-block text-muted transition group-open:rotate-90">
-                ▸
-              </span>
-              {f.q}
+            <summary className="cursor-pointer list-none marker:content-none">
+              <h3 className="inline font-medium text-foreground">
+                <span className="mr-2 inline-block text-muted transition group-open:rotate-90">
+                  ▸
+                </span>
+                {f.q}
+              </h3>
             </summary>
             <p className="mt-3 pl-6 text-sm leading-relaxed text-muted">{f.a}</p>
           </details>

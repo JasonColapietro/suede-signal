@@ -19,6 +19,18 @@ export function SiteFooter() {
         <Link href="/docs/faq" className="transition hover:text-foreground">
           FAQ
         </Link>
+        <a
+          href="https://suedeai.ai/privacy"
+          className="transition hover:text-foreground"
+        >
+          Privacy
+        </a>
+        <a
+          href="https://suedeai.ai/terms"
+          className="transition hover:text-foreground"
+        >
+          Terms
+        </a>
         <a href="mailto:hello@suedeai.ai" className="transition hover:text-foreground">
           Contact
         </a>
