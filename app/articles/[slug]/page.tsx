@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticle(slug);
   if (!article) return {};
   return {
-    title: `${article.title} — Suede Signal`,
+    title: `${article.title} | Suede Signal`,
     description: article.description,
     alternates: { canonical: `/articles/${article.slug}` },
     openGraph: {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: "Suede Signal — AI-readiness audit for answer engines",
+          alt: "Suede Signal: AI-readiness audit for answer engines",
         },
       ],
     },
@@ -99,7 +99,7 @@ export default async function ArticlePage({ params }: Props) {
           How visible is your site to AI engines?
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-          Run the free audit — 26 checks, graded in seconds, nothing stored.
+          Run the free audit: 26 checks, graded in seconds, nothing stored.
         </p>
         <Link
           href="/"

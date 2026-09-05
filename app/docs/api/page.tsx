@@ -3,14 +3,14 @@ import { renderMarkdown } from "@/lib/markdown";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "API reference — Suede Signal Docs",
+  title: "API reference | Suede Signal Docs",
   description:
     "HTTP reference for Suede Signal: POST /api/audit for the AI-visibility report and GET /api/mentions for community mention scans.",
   alternates: { canonical: "/docs/api" },
 };
 
 const BODY = `
-Both features of the site are plain HTTP endpoints. There's no authentication and no API key — the same free, stateless service the UI uses. Please be reasonable: these endpoints fetch third-party sites on demand, so cache on your side and don't hammer them.
+Both features of the site are plain HTTP endpoints. There's no authentication and no API key; it's the same free, stateless service the UI uses. Please be reasonable: these endpoints fetch third-party sites on demand, so cache on your side and don't hammer them.
 
 ## POST /api/audit
 
@@ -22,9 +22,9 @@ curl -s ${SITE_URL}/api/audit \\
   -d '{"url": "example.com"}'
 \`\`\`
 
-**Request body** — \`{ "url": string }\`. The scheme is optional; \`https://\` is assumed.
+**Request body**: \`{ "url": string }\`. The scheme is optional; \`https://\` is assumed.
 
-**Response 200** — the report:
+**Response 200**: the report:
 
 \`\`\`json
 {
@@ -57,8 +57,8 @@ Failed checks additionally carry a \`fix\` string. Lane \`id\`s are \`crawler-ac
 
 **Errors**
 
-- \`400\` — missing or invalid body, or empty \`url\`.
-- \`422\` — the target couldn't be audited: unreachable, non-2xx status, or a blocked address (see security notes). The \`error\` field is human-readable.
+- \`400\`: missing or invalid body, or empty \`url\`.
+- \`422\`: the target couldn't be audited: unreachable, non-2xx status, or a blocked address (see security notes). The \`error\` field is human-readable.
 
 ## GET /api/mentions
 
@@ -91,20 +91,20 @@ curl -s "${SITE_URL}/api/mentions?q=your%20brand"
 
 \`unavailable\` lists sources that couldn't be reached this scan (\`"Reddit"\`, \`"Hacker News"\`). If both are down you get \`502\` with an \`error\` message instead.
 
-**Errors** — \`400\` when \`q\` is missing or empty; \`502\` when both sources are unreachable.
+**Errors**: \`400\` when \`q\` is missing or empty; \`502\` when both sources are unreachable.
 
 ## Behavior & limits
 
-- **Timeouts** — each upstream fetch times out at 10 seconds; whole-request cap is 30 seconds.
-- **Redirects** — the auditor follows up to 5 redirects, re-validating every hop.
-- **Response cap** — page bodies are read up to 4 MB.
-- **SSRF protection** — the auditor resolves every hostname (including each redirect hop) and refuses private, loopback, link-local, and reserved addresses. You cannot point it at internal infrastructure.
-- **Statelessness** — nothing about your request is stored. There is no history endpoint; the UI's scan history lives in the browser's localStorage.
-- **User agent** — audit fetches identify as \`SuedeSignalAudit/1.0\`.
+- **Timeouts**: each upstream fetch times out at 10 seconds; whole-request cap is 30 seconds.
+- **Redirects**: the auditor follows up to 5 redirects, re-validating each hop.
+- **Response cap**: page bodies are read up to 4 MB.
+- **SSRF protection**: the auditor resolves each hostname (including each redirect hop) and refuses private, loopback, link-local, and reserved addresses. You cannot point it at internal infrastructure.
+- **Statelessness**: nothing about your request is stored. There is no history endpoint; the UI's scan history lives in the browser's localStorage.
+- **User agent**: audit fetches identify as \`SuedeSignalAudit/1.0\`.
 
 ## What the audit can't see
 
-The auditor reads server-returned HTML. Client-side-rendered content, geo-gated responses, and bot-walled pages will score differently from what a human sees in a browser — which is exactly the visibility problem the audit exists to surface.
+The auditor reads server-returned HTML. Client-side-rendered content, geo-gated responses, and bot-walled pages will score differently from what a human sees in a browser, which is exactly the visibility problem the audit exists to surface.
 `;
 
 export default function ApiPage() {
@@ -112,7 +112,7 @@ export default function ApiPage() {
     <article>
       <h1 className="text-3xl font-bold tracking-tight text-foreground">API reference</h1>
       <p className="mt-3 text-muted">
-        The two endpoints behind the site — free, unauthenticated, stateless.
+        The two endpoints behind the site: free, unauthenticated, stateless.
       </p>
       <div
         className="prose-suede mt-6"

@@ -1,4 +1,4 @@
-// Auto-scrolling query ticker for the problem section — the layout
+// Auto-scrolling query ticker for the problem section. The layout
 // device, filled with our own example prompts.
 
 const QUERIES = [

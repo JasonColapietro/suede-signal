@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "FAQ — Suede Signal Docs",
+  title: "FAQ | Suede Signal Docs",
   description:
     "Answers about the Suede Signal AI-visibility audit: what it checks, how scoring works, privacy, competitor comparison, and Mention Watch.",
   alternates: { canonical: "/docs/faq" },
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Is my data stored?",
-    a: "No. Every audit runs read-only against your public pages at request time and nothing is saved server-side. Your scan history lives only in your own browser's localStorage.",
+    a: "No. Each audit runs read-only against your public pages at request time and nothing is saved server-side. Your scan history lives only in your own browser's localStorage.",
   },
   {
     q: "How is this different from an SEO audit?",
@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "Why does my score differ from what I see in a browser?",
-    a: "The auditor reads the HTML your server returns, like a crawler does. Content rendered only by client-side JavaScript, geo-gated pages, and bot walls all change what the auditor (and real AI crawlers) can see.",
+    a: "The auditor reads the HTML your server returns, like a crawler does. Content rendered only by client-side JavaScript, geo-gated pages, and bot walls change what the auditor (and real AI crawlers) can see.",
   },
   {
     q: "Can I compare against competitors?",
@@ -51,11 +51,11 @@ const FAQS = [
   },
   {
     q: "Can I automate Mention Watch instead of doing it by hand?",
-    a: "Yes. Suede Agent Studio, our visual agent builder, runs the same scan-draft-approve loop on a schedule across Reddit, X, LinkedIn, and Discord, drafting in your brand voice and queueing every reply for your approval before anything posts.",
+    a: "Yes. Suede Agent Studio, our visual agent builder, runs the same scan-draft-approve loop on a schedule across Reddit, X, LinkedIn, and Discord, drafting in your brand voice and queueing each reply for your approval before anything posts.",
   },
   {
     q: "How often should I re-audit?",
-    a: "After every change you ship from the fix list, and roughly monthly otherwise. Scans from the same browser keep a local history, so you'll see the score trend between runs.",
+    a: "After each change you ship from the fix list, and roughly monthly otherwise. Scans from the same browser keep a local history, so you'll see the score trend between runs.",
   },
 ];
 

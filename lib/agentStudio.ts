@@ -7,7 +7,7 @@
 // page) to take ownership on their own device.
 //
 // Agent Studio's node palette has no web-fetch or social-posting node
-// today (checked against src/lib/flow/types.ts / nodes/*.ts) — only
+// today (checked against src/lib/flow/types.ts / nodes/*.ts). Only
 // input/output/llm/schedule/branch/subflow plus Suede's own music tools.
 // So this creates the real, buildable slice: an input -> llm -> output
 // flow that drafts a disclosed reply from real mention content via an
@@ -39,7 +39,7 @@ type FlowGraph = {
 function buildReplyAgentGraph(brand: string, mention: MentionSeed): FlowGraph {
   return {
     id: randomUUID(),
-    name: `${brand} — disclosed reply drafter`,
+    name: `${brand}: disclosed reply drafter`,
     nodes: [
       {
         id: "n1",
