@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SITE_URL } from "@/lib/site";
+import { OG_IMAGE, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +26,21 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Suede Signal",
     type: "website",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Suede Signal — AI-readiness audit for answer engines",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Suede Signal — AI-readiness audit for answer engines",
     description:
       "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
+    images: [OG_IMAGE],
   },
 };
 
@@ -59,6 +68,21 @@ const orgSchema = {
       name: "Suede Signal",
       url: SITE_URL,
       publisher: { "@id": "https://suedeai.ai/#organization" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/#software`,
+      name: "Suede Signal",
+      url: SITE_URL,
+      applicationCategory: "SEOApplication",
+      operatingSystem: "Web",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      publisher: { "@id": "https://suedeai.ai/#organization" },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
     },
   ],
 };
