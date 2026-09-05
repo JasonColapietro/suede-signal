@@ -77,7 +77,7 @@ function LaneCard({ lane }: { lane: Lane }) {
               </span>
               <span>
                 <span className="text-foreground">{c.label}</span>
-                <span className="text-muted"> — {c.detail}</span>
+                <span className="text-muted">: {c.detail}</span>
               </span>
             </li>
           ))}
@@ -207,7 +207,7 @@ function draftReply(brand: string, m: Mention): string {
   return [
     `Disclosure up front: I work on ${brand}, so weigh accordingly.`,
     ``,
-    `Since "${m.title}" is on topic — adding one option to the thread. ${brand} [one honest sentence on what it does and who it's for — edit before posting].`,
+    `Since "${m.title}" is on topic, adding one option to the thread. ${brand} [one honest sentence on what it does and who it's for; edit before posting].`,
     ``,
     `Not here to pitch. Happy to answer questions in-thread if it's useful, and genuinely fine if a different tool fits better.`,
   ].join("\n");
@@ -259,7 +259,7 @@ function MentionCard({ mention, brand }: { mention: Mention; brand: string }) {
               >
                 {copied ? "Copied ✓" : "Copy draft"}
               </button>
-              <span className="text-xs text-muted">Edit before posting — disclosure stays in.</span>
+              <span className="text-xs text-muted">Edit before posting. Disclosure stays in.</span>
             </div>
           </div>
         )}
@@ -310,12 +310,12 @@ function BuildAgentButton({
     return (
       <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4">
         <p className="text-sm font-medium text-foreground">
-          Agent created in Suede Agent Studio — it drafts replies with a real Claude call,
+          Agent created in Suede Agent Studio. It drafts replies with a real Claude call,
           seeded from &quot;{mention.title}&quot;.
         </p>
         <p className="mt-1 text-xs text-muted">
           Paste this workspace key into the &quot;Claim a workspace on this device&quot; box on
-          the Flows page to open it. Treat it like a password — it&apos;s the only way in.
+          the Flows page to open it. Treat it like a password. It&apos;s the only way in.
         </p>
         <div className="mt-3 flex items-center gap-2">
           <code className="min-w-0 flex-1 truncate rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground">
@@ -423,12 +423,12 @@ function MentionWatch({ brand }: { brand: string }) {
         <div className="mt-4 space-y-3">
           {unavailable.length > 0 && (
             <p className="text-xs text-muted">
-              {unavailable.join(" and ")} unreachable right now — showing the rest.
+              {unavailable.join(" and ")} unreachable right now. Showing the rest.
             </p>
           )}
           {mentions.length === 0 ? (
             <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-sm text-muted shadow-sm">
-              No high-impact threads found for “{query}”. That itself is a visibility gap — the
+              No high-impact threads found for “{query}”. That itself is a visibility gap: the
               conversations AI learns from don&apos;t mention you yet.
             </p>
           ) : (
@@ -452,11 +452,11 @@ const FAQS = [
   },
   {
     q: "Why does AI visibility matter?",
-    a: "A growing share of product discovery now starts in ChatGPT, Claude, Perplexity, and Google AI Overviews instead of a search results page. If the engines can't read your site — or can't find a citable passage on it — you don't exist in the answer.",
+    a: "A growing share of product discovery now starts in ChatGPT, Claude, Perplexity, and Google AI Overviews instead of a search results page. If the engines can't read your site, or can't find a citable passage on it, you don't exist in the answer.",
   },
   {
     q: "Is my data stored?",
-    a: "No. Every audit runs read-only against your public pages at request time. Nothing is saved on our side.",
+    a: "No. Each audit runs read-only against your public pages at request time. Nothing is saved on our side.",
   },
   {
     q: "How is this different from an SEO audit?",
@@ -464,11 +464,11 @@ const FAQS = [
   },
   {
     q: "Can I compare against competitors?",
-    a: "Yes — add up to two competitor URLs and you get a lane-by-lane comparison showing exactly where you lead and where you're losing the answer.",
+    a: "Yes. Add up to two competitor URLs and you get a lane-by-lane comparison showing exactly where you lead and where you're losing the answer.",
   },
   {
     q: "Can I automate Mention Watch instead of doing it by hand?",
-    a: "Partly. After a scan, \"Build this agent\" creates a real agent in Suede Agent Studio, our visual agent builder — it drafts the reply with an actual Claude call instead of a template, seeded from the thread you found. Scanning and posting still happen by hand; Agent Studio doesn't yet have a node that can search social platforms or post to them.",
+    a: "Partly. After a scan, \"Build this agent\" creates a real agent in Suede Agent Studio, our visual agent builder. It drafts the reply with an actual Claude call instead of a template, seeded from the thread you found. Scanning and posting still happen by hand; Agent Studio doesn't yet have a node that can search social platforms or post to them.",
   },
 ];
 
@@ -569,7 +569,7 @@ export default function Home() {
         </h1>
         <p className="relative mx-auto mt-5 max-w-xl text-lg text-muted">
           ChatGPT, Claude, and Perplexity are the new front page. Paste your URL and get a graded
-          audit in seconds — what the engines can read, what&apos;s missing, and exactly what to
+          audit in seconds: what the engines can read, what&apos;s missing, and exactly what to
           fix.
         </p>
 
@@ -642,7 +642,7 @@ export default function Home() {
 
       {loading && (
         <p className="mt-2 animate-pulse text-center text-sm text-muted">
-          Fetching {filled.length > 1 ? `${filled.length} sites` : "your page"} — robots.txt,
+          Fetching {filled.length > 1 ? `${filled.length} sites` : "your page"}: robots.txt,
           llms.txt, and schema…
         </p>
       )}
@@ -688,7 +688,7 @@ export default function Home() {
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-center text-muted">
               ChatGPT, Perplexity, and Gemini pull answers from pages they can crawl, parse, and
-              trust — then cite the source. Everyone else gets skipped, and most sites fail at
+              trust, then cite the source. Everyone else gets skipped, and most sites fail at
               least one of the three without knowing it.
             </p>
             <div className="mt-8">
@@ -707,7 +707,7 @@ export default function Home() {
                 </h3>
                 <p className="mt-2 text-muted">
                   Paste a URL, get an A–F grade in seconds. Five weighted lanes, 26 checks, and a
-                  ranked fix list — the same lanes the Suede audit stack runs on production sites.
+                  ranked fix list, the same lanes the Suede audit stack runs on production sites.
                 </p>
               </div>
               <div className="flex flex-1 justify-center rounded-3xl border border-border bg-surface p-8 shadow-sm">
@@ -749,8 +749,8 @@ export default function Home() {
                   Listen before AI does
                 </h3>
                 <p className="mt-2 text-muted">
-                  See where your brand shows up in the conversations AI engines learn from —
-                  community threads, ranked by impact — and draft a disclosed reply.
+                  See where your brand shows up in the conversations AI engines learn from,
+                  community threads ranked by impact, and draft a disclosed reply.
                 </p>
               </div>
               <div className="flex-1 rounded-3xl border border-border bg-surface p-5 shadow-sm">
@@ -772,7 +772,7 @@ export default function Home() {
                 </h3>
                 <p className="mt-2 text-muted">
                   Run an audit, then scan for mentions and hit &quot;Build this agent&quot; on
-                  the results. It creates a real flow in Suede Agent Studio — an actual Claude
+                  the results. It creates a real flow in Suede Agent Studio, an actual Claude
                   call that drafts the reply, seeded from the thread you found. Scanning and
                   posting still happen by hand; there&apos;s no node yet that can search or post
                   to social platforms.
@@ -792,7 +792,7 @@ export default function Home() {
 
           <section className="mt-20">
             <h2 className="text-center text-sm font-semibold tracking-wide text-muted uppercase">
-              Pricing
+              Suede Signal pricing
             </h2>
             <div className="mx-auto mt-6 max-w-lg rounded-3xl border-2 border-accent/40 bg-surface p-6 shadow-sm">
               <div className="flex items-baseline justify-between">
@@ -808,13 +808,13 @@ export default function Home() {
               </ul>
             </div>
             <p className="mt-4 text-center text-sm text-muted">
-              Watch (scheduled re-audits, drift alerts, cross-device sync) — coming soon.
+              Watch (scheduled re-audits, drift alerts, cross-device sync): coming soon.
             </p>
           </section>
 
           <section className="mt-20">
             <h2 className="text-center text-sm font-semibold tracking-wide text-muted uppercase">
-              Questions
+              Suede Signal FAQ
             </h2>
             <div className="mt-6 space-y-2">
               {FAQS.map((f) => (

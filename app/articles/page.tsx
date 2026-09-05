@@ -5,7 +5,7 @@ import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "Articles — Suede Signal",
+  title: "Articles | Suede Signal",
   description:
     "Practitioner guides to AI visibility: llms.txt, AI crawler policy, JSON-LD, citable writing, and where AI engines learn about brands.",
   alternates: { canonical: "/articles" },
@@ -18,7 +18,7 @@ export default function ArticlesIndex() {
       <section className="mt-14">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Articles</h1>
         <p className="mt-3 max-w-xl text-muted">
-          Practitioner guides to becoming the brand AI recommends — no hype, working
+          Practitioner guides to becoming the brand AI recommends: no hype, working
           examples, honest about what nobody can guarantee.
         </p>
       </section>

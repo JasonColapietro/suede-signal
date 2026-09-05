@@ -2,7 +2,7 @@
 
 // The signature move: an analog signal-strength meter. Same component
 // idles in the hero (needle at rest, "no signal") and reports a real
-// score after an audit — the marketing surface literally demos the
+// score after an audit. The marketing surface literally demos the
 // product instead of describing it.
 
 const RADIUS = 82;

@@ -1,4 +1,4 @@
-// Suede Signal — AI visibility audit engine.
+// Suede Signal: AI visibility audit engine.
 // Deterministic checks distilled from the Suede audit skill lanes
 // (suede-seo-audit, suede-visibility-grader, seo-geo). No LLM calls.
 
@@ -47,7 +47,7 @@ const FETCH_HEADERS = {
 };
 
 const MAX_REDIRECTS = 5;
-const MAX_RESPONSE_BYTES = 4 * 1024 * 1024; // 4MB — plenty for an HTML page, caps abuse
+const MAX_RESPONSE_BYTES = 4 * 1024 * 1024; // 4MB, plenty for an HTML page, caps abuse
 
 // This tool fetches whatever URL a visitor supplies, server-side. Without
 // this check it's an SSRF gadget: an attacker points it at 127.0.0.1, an
@@ -84,7 +84,7 @@ function isPrivateOrReservedIPv6(ip: string): boolean {
 function isPrivateOrReservedIP(ip: string): boolean {
   if (net.isIPv4(ip)) return isPrivateOrReservedIPv4(ip);
   if (net.isIPv6(ip)) return isPrivateOrReservedIPv6(ip);
-  return true; // unrecognized shape — fail closed
+  return true; // unrecognized shape, fail closed
 }
 
 async function assertPublicHost(hostname: string): Promise<void> {
@@ -191,7 +191,7 @@ function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean): La
       id: "robots-missing",
       label: "robots.txt reachable",
       passed: true, // no robots.txt = everything allowed; not a block
-      detail: "No robots.txt found — all crawlers allowed by default.",
+      detail: "No robots.txt found. All crawlers allowed by default.",
     });
   } else {
     for (const bot of AI_CRAWLERS) {
@@ -202,7 +202,7 @@ function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean): La
         label: `${bot} allowed`,
         passed: !blocked,
         detail: blocked
-          ? `${bot} is disallowed in robots.txt — this AI engine cannot read your site.`
+          ? `${bot} is disallowed in robots.txt. This AI engine cannot read your site.`
           : `${bot} can crawl your site.`,
         fix: blocked
           ? `Remove the Disallow rule for ${bot} in robots.txt so AI engines can cite you.`
@@ -216,8 +216,8 @@ function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean): La
     label: "llms.txt present",
     passed: llmsTxtFound,
     detail: llmsTxtFound
-      ? "llms.txt found — AI engines get a curated map of your site."
-      : "No llms.txt — AI engines have no curated guide to your content.",
+      ? "llms.txt found. AI engines get a curated map of your site."
+      : "No llms.txt. AI engines have no curated guide to your content.",
     fix: llmsTxtFound
       ? undefined
       : "Add /llms.txt: a short markdown file listing your key pages with one-line descriptions.",
@@ -282,7 +282,7 @@ function auditMetadata(html: string, finalUrl: string): Lane {
       fix:
         !!desc && desc.length >= 50 && desc.length <= 160
           ? undefined
-          : "Add a 50–160 character meta description that answers the query directly — AI engines lift these.",
+          : "Add a 50–160 character meta description that answers the query directly. AI engines lift these.",
     },
     {
       id: "canonical",
@@ -306,7 +306,7 @@ function auditMetadata(html: string, finalUrl: string): Lane {
       label: "Served over HTTPS",
       passed: https,
       detail: https ? "HTTPS in use." : "Page resolves over HTTP.",
-      fix: https ? undefined : "Serve the site over HTTPS — AI engines deprioritize insecure sources.",
+      fix: https ? undefined : "Serve the site over HTTPS. AI engines deprioritize insecure sources.",
     },
   ];
 
@@ -349,7 +349,7 @@ function auditSchema(html: string): Lane {
       fix:
         types.length > 0
           ? undefined
-          : "Add JSON-LD (Organization + WebSite at minimum) — structured data is how AI engines verify who you are.",
+          : "Add JSON-LD (Organization + WebSite at minimum). Structured data is how AI engines verify who you are.",
     },
     {
       id: "entity",
@@ -363,7 +363,7 @@ function auditSchema(html: string): Lane {
       label: "FAQ schema",
       passed: hasFaq,
       detail: hasFaq ? "FAQPage schema present." : "No FAQ schema.",
-      fix: hasFaq ? undefined : "Add FAQPage schema for your top 3–5 questions — the highest-yield format for AI answers.",
+      fix: hasFaq ? undefined : "Add FAQPage schema for your top 3–5 questions, the highest-yield format for AI answers.",
     },
   ];
 
@@ -393,7 +393,7 @@ function auditCitability(html: string): Lane {
       label: "Section structure (2+ H2s)",
       passed: h2Count >= 2,
       detail: `${h2Count} H2 headings.`,
-      fix: h2Count >= 2 ? undefined : "Break content into H2 sections — AI engines cite passages, and passages need boundaries.",
+      fix: h2Count >= 2 ? undefined : "Break content into H2 sections. AI engines cite passages, and passages need boundaries.",
     },
     {
       id: "depth",
@@ -407,7 +407,7 @@ function auditCitability(html: string): Lane {
       label: "Lists or tables present",
       passed: hasLists,
       detail: hasLists ? "Scannable structures found." : "No lists or tables.",
-      fix: hasLists ? undefined : "Convert key points to bullet lists — the format AI answers extract most often.",
+      fix: hasLists ? undefined : "Convert key points to bullet lists, the format AI answers extract most often.",
     },
     {
       id: "questions",
@@ -435,7 +435,7 @@ function auditTrust(html: string): Lane {
       label: "About page linked",
       passed: hasAbout,
       detail: hasAbout ? "About link found." : "No /about link found.",
-      fix: hasAbout ? undefined : "Link an About page — entity verification is a core AI trust signal.",
+      fix: hasAbout ? undefined : "Link an About page. Entity verification is a core AI trust signal.",
     },
     {
       id: "contact",
@@ -449,7 +449,7 @@ function auditTrust(html: string): Lane {
       label: "Dates / freshness signals",
       passed: hasDates,
       detail: hasDates ? "Date markup present." : "No date or freshness markup.",
-      fix: hasDates ? undefined : "Add datePublished/dateModified markup — AI engines prefer provably fresh sources.",
+      fix: hasDates ? undefined : "Add datePublished/dateModified markup. AI engines prefer provably fresh sources.",
     },
   ];
 
@@ -469,7 +469,7 @@ function toGrade(score: number): string {
 export async function runAudit(rawUrl: string): Promise<AuditReport> {
   let url = rawUrl.trim();
   if (!/^https?:\/\//i.test(url)) url = `https://${url}`;
-  const parsed = new URL(url); // throws on invalid — caught by the route
+  const parsed = new URL(url); // throws on invalid, caught by the route
 
   const origin = parsed.origin;
   const [page, robots, llms] = await Promise.all([
@@ -481,7 +481,7 @@ export async function runAudit(rawUrl: string): Promise<AuditReport> {
   if (!page.ok) {
     throw new Error(
       page.status === 0
-        ? `Could not reach ${url} — check the address and try again.`
+        ? `Could not reach ${url}. Check the address and try again.`
         : `${url} responded with HTTP ${page.status}.`
     );
   }
