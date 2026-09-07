@@ -34,6 +34,18 @@ export function SiteFooter() {
         <a href="mailto:hello@suedeai.ai" className="transition hover:text-foreground">
           Contact
         </a>
+        <a
+          href="https://hub.suedeai.ai"
+          className="transition hover:text-foreground"
+        >
+          Suede estate directory
+        </a>
+        <a
+          href="https://seo.suedeai.ai"
+          className="transition hover:text-foreground"
+        >
+          Suede SEO
+        </a>
       </nav>
       <p className="mt-4 text-center">
         Suede Signal runs read-only checks against your public pages. Nothing is stored.
