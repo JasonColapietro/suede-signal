@@ -53,6 +53,7 @@ const orgSchema = {
       name: "Suede Labs AI",
       url: "https://suedeai.ai",
       foundingDate: "2024",
+      founder: { "@id": "https://suedeai.ai/founder#person" },
       sameAs: [
         "https://suedeai.org/",
         "https://github.com/Suede-AI",
@@ -61,6 +62,12 @@ const orgSchema = {
         "https://www.linkedin.com/company/suede-labs",
         "https://www.wikidata.org/wiki/Q141169484",
       ],
+    },
+    {
+      "@type": "Person",
+      "@id": "https://suedeai.ai/founder#person",
+      name: "Jason Colapietro",
+      url: "https://suedeai.ai/founder",
     },
     {
       "@type": "WebSite",
