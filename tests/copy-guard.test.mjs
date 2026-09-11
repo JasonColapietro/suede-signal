@@ -118,6 +118,14 @@ test("root JSON-LD Organization declares the canonical name", () => {
   assert.match(layout, /name:\s*"Suede Labs AI"/);
 });
 
+test("article metadata publishes the canonical Open Graph URL", () => {
+  const articlePage = readFileSync(join(ROOT, "app", "articles", "[slug]", "page.tsx"), "utf8");
+  assert.match(
+    articlePage,
+    /openGraph:\s*\{[\s\S]*?url:\s*`\$\{SITE_URL\}\/articles\/\$\{article\.slug\}`/,
+  );
+});
+
 // A lone em dash as an entire string literal is the gauge's "no score yet"
 // placeholder glyph, not prose. Dropping those occurrences leaves every em
 // dash that sits inside a sentence, which is the thing the rule bans.
