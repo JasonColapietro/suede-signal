@@ -42,7 +42,7 @@ If a scan returns nothing for your brand, that's a finding too: the conversation
 
 ## Can I automate the loop?
 
-By hand, the loop is: scan, pick the threads worth joining, draft, edit, post, repeat next week. [Suede Agent Studio](https://agents.suedeai.ai) lets you build the same scan–draft–approve loop as a scheduled agent across more sources (Reddit, X, LinkedIn, Discord), drafting in your brand voice, with each reply queued for your approval before anything posts. Mention Watch is the manual version so you can validate the workflow before automating it.
+By hand, the loop is: scan, pick the threads worth joining, draft, edit, post, repeat next week. [Suede AI Agent Studio](https://agents.suedeai.ai) lets you build the same scan–draft–approve loop as a scheduled agent across more sources (Reddit, X, LinkedIn, Discord), drafting in your brand voice, with each reply queued for your approval before anything posts. Mention Watch is the manual version so you can validate the workflow before automating it.
 
 ## Ground rules
 

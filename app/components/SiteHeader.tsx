@@ -27,7 +27,7 @@ export function SiteHeader() {
           rel="noopener noreferrer"
           className="hidden text-accent-strong transition hover:text-accent sm:inline"
         >
-          Suede Agent Studio ↗
+          Suede AI Agent Studio ↗
         </a>
       </nav>
     </header>

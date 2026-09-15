@@ -310,7 +310,7 @@ function BuildAgentButton({
     return (
       <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-4">
         <p className="text-sm font-medium text-foreground">
-          Agent created in Suede Agent Studio. It drafts replies with a real Claude call,
+          Agent created in Suede AI Agent Studio. It drafts replies with a real Claude call,
           seeded from &quot;{mention.title}&quot;.
         </p>
         <p className="mt-1 text-xs text-muted">
@@ -338,7 +338,7 @@ function BuildAgentButton({
           rel="noopener noreferrer"
           className="mt-3 inline-block text-sm font-semibold text-accent-strong transition hover:text-accent"
         >
-          Open Suede Agent Studio ↗
+          Open Suede AI Agent Studio ↗
         </a>
       </div>
     );
@@ -468,7 +468,7 @@ const FAQS = [
   },
   {
     q: "Can I automate Mention Watch instead of doing it by hand?",
-    a: "Partly. After a scan, \"Build this agent\" creates a real agent in Suede Agent Studio, our visual agent builder. It drafts the reply with an actual Claude call instead of a template, seeded from the thread you found. Scanning and posting still happen by hand; Agent Studio doesn't yet have a node that can search social platforms or post to them.",
+    a: "Partly. After a scan, \"Build this agent\" creates a real agent in Suede AI Agent Studio, our visual agent builder. It drafts the reply with an actual Claude call instead of a template, seeded from the thread you found. Scanning and posting still happen by hand; Agent Studio doesn't yet have a node that can search social platforms or post to them.",
   },
 ];
 
@@ -551,7 +551,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="hidden text-accent-strong transition hover:text-accent sm:inline"
           >
-            Suede Agent Studio ↗
+            Suede AI Agent Studio ↗
           </a>
           <span className="hidden text-muted sm:inline">by Suede Labs AI</span>
         </div>
@@ -765,14 +765,14 @@ export default function Home() {
             <div className="flex flex-col items-center gap-8 sm:flex-row-reverse">
               <div className="flex-1">
                 <p className="text-xs font-semibold tracking-wide text-accent-strong uppercase">
-                  Suede Agent Studio
+                  Suede AI Agent Studio
                 </p>
                 <h3 className="mt-2 text-2xl font-bold text-foreground">
                   Turn a found thread into a real drafting agent
                 </h3>
                 <p className="mt-2 text-muted">
                   Run an audit, then scan for mentions and hit &quot;Build this agent&quot; on
-                  the results. It creates a real flow in Suede Agent Studio, an actual Claude
+                  the results. It creates a real flow in Suede AI Agent Studio, an actual Claude
                   call that drafts the reply, seeded from the thread you found. Scanning and
                   posting still happen by hand; there&apos;s no node yet that can search or post
                   to social platforms.

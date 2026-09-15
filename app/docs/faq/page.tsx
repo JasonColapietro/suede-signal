@@ -51,7 +51,7 @@ const FAQS = [
   },
   {
     q: "Can I automate Mention Watch instead of doing it by hand?",
-    a: "Yes. Suede Agent Studio, our visual agent builder, runs the same scan-draft-approve loop on a schedule across Reddit, X, LinkedIn, and Discord, drafting in your brand voice and queueing each reply for your approval before anything posts.",
+    a: "Yes. Suede AI Agent Studio, our visual agent builder, runs the same scan-draft-approve loop on a schedule across Reddit, X, LinkedIn, and Discord, drafting in your brand voice and queueing each reply for your approval before anything posts.",
   },
   {
     q: "How often should I re-audit?",
