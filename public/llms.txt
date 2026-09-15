@@ -24,4 +24,4 @@
 ## Company
 
 - [Suede Labs](https://suedeai.ai): the studio behind Suede Signal
-- [Suede Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
+- [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates

@@ -5,7 +5,7 @@
 
 const STEPS = [
   { label: "Scan", detail: "Suede Signal searches Reddit and Hacker News for you, on demand" },
-  { label: "Draft", detail: "A real agent in Suede Agent Studio drafts the reply: an actual Claude call, not a template" },
+  { label: "Draft", detail: "A real agent in Suede AI Agent Studio drafts the reply: an actual Claude call, not a template" },
   { label: "Review", detail: "You read it, edit it, add anything only you'd know" },
   { label: "Post", detail: "You paste it in yourself. No auto-poster yet" },
 ];

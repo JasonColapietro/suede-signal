@@ -1,4 +1,4 @@
-// Real bridge to Suede Agent Studio (agents.suedeai.ai). Agent Studio has
+// Real bridge to Suede AI Agent Studio (agents.suedeai.ai). Agent Studio has
 // no login: every workspace is an unguessable owner UUID, normally minted
 // as a browser cookie. We mint one server-side, create a real flow under
 // it via Agent Studio's own public API, and hand the UUID back as a
