@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Answers about the Suede Signal AI-visibility audit: what it checks, how scoring works, privacy, competitor comparison, and Mention Watch.",
   alternates: { canonical: "/docs/faq" },
+  keywords: keywordsFor("/docs/faq"),
 };
 
 const FAQS = [

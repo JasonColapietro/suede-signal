@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
   description:
     "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
   alternates: { canonical: "/" },
+  keywords: keywordsFor("/"),
   openGraph: {
     title: "Suede Signal: AI-readiness audit for answer engines",
     description:

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { renderMarkdown } from "@/lib/markdown";
 
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   description:
     "How Suede Signal works: a free, instant AI-visibility audit with 26 deterministic checks across five weighted lanes. No signup, nothing stored.",
   alternates: { canonical: "/docs" },
+  keywords: keywordsFor("/docs"),
 };
 
 const BODY = `

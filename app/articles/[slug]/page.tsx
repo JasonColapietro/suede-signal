@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle } from "@/lib/articles";
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | Suede Signal`,
     description: article.description,
     alternates: { canonical: `/articles/${article.slug}` },
+    keywords: keywordsFor(`/articles/${article.slug}`),
     openGraph: {
       title: article.title,
       description: article.description,
@@ -60,6 +62,7 @@ export default async function ArticlePage({ params }: Props) {
     mainEntityOfPage: `${SITE_URL}/articles/${article.slug}`,
     author: { "@type": "Organization", name: "Suede Labs AI", url: "https://suedeai.ai" },
     publisher: { "@type": "Organization", name: "Suede Labs AI", url: "https://suedeai.ai" },
+    keywords: keywordsFor(`/articles/${article.slug}`).join(", "),
   };
 
   return (

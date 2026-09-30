@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "How Mention Watch finds the community threads AI engines learn from, ranks them by impact, and drafts a disclosed reply you edit before posting.",
   alternates: { canonical: "/docs/mention-watch" },
+  keywords: keywordsFor("/docs/mention-watch"),
 };
 
 const BODY = `

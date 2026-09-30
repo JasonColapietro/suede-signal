@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { renderMarkdown } from "@/lib/markdown";
 
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   description:
     "The full methodology: five weighted lanes, the 26 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.",
   alternates: { canonical: "/docs/scoring" },
+  keywords: keywordsFor("/docs/scoring"),
 };
 
 const BODY = `
