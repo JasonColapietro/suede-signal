@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 import { SITE_URL } from "@/lib/site";
 
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   description:
     "HTTP reference for Suede Signal: POST /api/audit for the AI-visibility report and GET /api/mentions for community mention scans.",
   alternates: { canonical: "/docs/api" },
+  keywords: keywordsFor("/docs/api"),
 };
 
 const BODY = `

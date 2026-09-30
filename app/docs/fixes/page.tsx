@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Copy-pasteable fixes for each Suede Signal check: robots.txt rules for AI crawlers, llms.txt templates, JSON-LD schema, metadata, and citable structure.",
   alternates: { canonical: "/docs/fixes" },
+  keywords: keywordsFor("/docs/fixes"),
 };
 
 const BODY = `

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
 import { SiteHeader } from "@/app/components/SiteHeader";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "Practitioner guides to AI visibility: llms.txt, AI crawler policy, JSON-LD, citable writing, and where AI engines learn about brands.",
   alternates: { canonical: "/articles" },
+  keywords: keywordsFor("/articles"),
 };
 
 export default function ArticlesIndex() {
