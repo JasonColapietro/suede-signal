@@ -52,7 +52,7 @@ const orgSchema = {
     {
       "@type": "Organization",
       "@id": "https://suedeai.ai/#organization",
-      name: "Suede Labs AI",
+      name: "Suede AI",
       url: "https://suedeai.ai",
       foundingDate: "2024",
       founder: { "@id": "https://suedeai.ai/founder#person" },

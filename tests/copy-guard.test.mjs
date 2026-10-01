@@ -9,8 +9,9 @@
 //      that promises that". So the copy must describe what the tool CHECKS, not
 //      a RESULT it produces.
 //
-//   2. CANONICAL ORG NAME. The organization is "Suede Labs AI" (estate canon),
-//      never the bare "Suede Labs" — in JSON-LD, bylines, or prose.
+//   2. CANONICAL ORG NAME. The organization is "Suede AI" (estate canon),
+//      never the retired "Suede Labs AI" or a bare "Suede Labs" — in JSON-LD,
+//      bylines, or prose.
 //
 //   3. NO EM DASHES. Estate copy voice bans the em dash in public copy. Use a
 //      colon, a comma, a semicolon, or two sentences. The one allowance is a
@@ -101,13 +102,13 @@ test("no outcome-promise phrasing on any served page (per file, tag-stripped)", 
   }
 });
 
-test('organization is named "Suede Labs AI", never bare "Suede Labs"', () => {
-  for (const file of orgFiles) {
+test('organization is named "Suede AI", never "Suede Labs AI" or bare "Suede Labs"', () => {
+  for (const file of [...orgFiles, join(ROOT, "public", "llms.txt")]) {
     const src = readFileSync(file, "utf8");
-    const bare = src.match(/Suede Labs(?! AI)/g);
+    const retired = src.match(/Suede Labs/g);
     assert.ok(
-      bare === null,
-      `${relative(ROOT, file)} uses bare "Suede Labs" (${bare?.length}x); canonical name is "Suede Labs AI"`,
+      retired === null,
+      `${relative(ROOT, file)} uses "Suede Labs" (${retired?.length}x); canonical name is "Suede AI"`,
     );
   }
 });
@@ -115,7 +116,7 @@ test('organization is named "Suede Labs AI", never bare "Suede Labs"', () => {
 test("root JSON-LD Organization declares the canonical name", () => {
   const layout = readFileSync(join(ROOT, "app", "layout.tsx"), "utf8");
   assert.match(layout, /"@id":\s*"https:\/\/suedeai\.ai\/#organization"/);
-  assert.match(layout, /name:\s*"Suede Labs AI"/);
+  assert.match(layout, /name:\s*"Suede AI"/);
 });
 
 test("article metadata publishes the canonical Open Graph URL", () => {
