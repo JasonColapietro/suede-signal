@@ -553,7 +553,7 @@ export default function Home() {
           >
             Suede AI Agent Studio ↗
           </a>
-          <span className="hidden text-muted sm:inline">by Suede Labs AI</span>
+          <span className="hidden text-muted sm:inline">by Suede AI</span>
         </div>
       </header>
 

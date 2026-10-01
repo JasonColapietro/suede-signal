@@ -1,6 +1,6 @@
 # Suede Signal
 
-> Suede Signal is a free, instant AI-visibility audit by Suede Labs. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). 26 deterministic checks, no signup, nothing stored.
+> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). 26 deterministic checks, no signup, nothing stored.
 
 ## Product
 
@@ -23,5 +23,5 @@
 
 ## Company
 
-- [Suede Labs](https://suedeai.ai): the studio behind Suede Signal
+- [Suede AI](https://suedeai.ai): the studio behind Suede Signal
 - [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
