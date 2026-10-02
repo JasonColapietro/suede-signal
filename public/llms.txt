@@ -25,3 +25,7 @@
 
 - [Suede AI](https://suedeai.ai): the studio behind Suede Signal
 - [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
+
+## Source and citation guide
+
+- [AI Instructions](https://signal.suedeai.ai/ai-instructions): Site identity, authoritative sources and citation guidance.
