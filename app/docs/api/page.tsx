@@ -1,12 +1,17 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 import { SITE_URL } from "@/lib/site";
 
+const title = "API reference | Suede Signal Docs";
+const description =
+  "HTTP reference for Suede Signal: POST /api/audit for the AI-visibility report and GET /api/mentions for community mention scans.";
+
 export const metadata: Metadata = {
-  title: "API reference | Suede Signal Docs",
-  description:
-    "HTTP reference for Suede Signal: POST /api/audit for the AI-visibility report and GET /api/mentions for community mention scans.",
+  title,
+  description,
+  ...pageSocialMetadata("/docs/api", title, description),
   alternates: { canonical: "/docs/api" },
   keywords: keywordsFor("/docs/api"),
 };

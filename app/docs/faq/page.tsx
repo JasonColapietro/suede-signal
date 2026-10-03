@@ -1,11 +1,16 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 
+const title = "FAQ | Suede Signal Docs";
+const description =
+  "Answers about the Suede Signal AI-visibility audit: what it checks, how scoring works, privacy, competitor comparison, and Mention Watch.";
+
 export const metadata: Metadata = {
-  title: "FAQ | Suede Signal Docs",
-  description:
-    "Answers about the Suede Signal AI-visibility audit: what it checks, how scoring works, privacy, competitor comparison, and Mention Watch.",
+  title,
+  description,
+  ...pageSocialMetadata("/docs/faq", title, description),
   alternates: { canonical: "/docs/faq" },
   keywords: keywordsFor("/docs/faq"),
 };

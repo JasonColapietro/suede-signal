@@ -1,3 +1,4 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
@@ -5,10 +6,14 @@ import { articles } from "@/lib/articles";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
 
+const title = "Articles | Suede Signal";
+const description =
+  "Practitioner guides to AI visibility: llms.txt, AI crawler policy, JSON-LD, citable writing, and where AI engines learn about brands.";
+
 export const metadata: Metadata = {
-  title: "Articles | Suede Signal",
-  description:
-    "Practitioner guides to AI visibility: llms.txt, AI crawler policy, JSON-LD, citable writing, and where AI engines learn about brands.",
+  title,
+  description,
+  ...pageSocialMetadata("/articles", title, description),
   alternates: { canonical: "/articles" },
   keywords: keywordsFor("/articles"),
 };

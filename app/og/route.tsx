@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 // reference to it goes stale; a Route Handler keeps the URL fixed.
 export const dynamic = "force-static";
 
-export const size = { width: 1200, height: 630 };
+const size = { width: 1200, height: 630 };
 
 export function GET() {
   return new ImageResponse(

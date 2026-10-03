@@ -1,12 +1,17 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { renderMarkdown } from "@/lib/markdown";
 
+const title = "Documentation | Suede Signal";
+const description =
+  "How Suede Signal works: a free, instant AI-visibility audit with 26 deterministic checks across five weighted lanes. No signup, nothing stored.";
+
 export const metadata: Metadata = {
-  title: "Documentation | Suede Signal",
-  description:
-    "How Suede Signal works: a free, instant AI-visibility audit with 26 deterministic checks across five weighted lanes. No signup, nothing stored.",
+  title,
+  description,
+  ...pageSocialMetadata("/docs", title, description),
   alternates: { canonical: "/docs" },
   keywords: keywordsFor("/docs"),
 };
