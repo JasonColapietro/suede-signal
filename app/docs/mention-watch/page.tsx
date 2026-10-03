@@ -1,11 +1,16 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 
+const title = "Mention Watch | Suede Signal Docs";
+const description =
+  "How Mention Watch finds the community threads AI engines learn from, ranks them by impact, and drafts a disclosed reply you edit before posting.";
+
 export const metadata: Metadata = {
-  title: "Mention Watch | Suede Signal Docs",
-  description:
-    "How Mention Watch finds the community threads AI engines learn from, ranks them by impact, and drafts a disclosed reply you edit before posting.",
+  title,
+  description,
+  ...pageSocialMetadata("/docs/mention-watch", title, description),
   alternates: { canonical: "/docs/mention-watch" },
   keywords: keywordsFor("/docs/mention-watch"),
 };

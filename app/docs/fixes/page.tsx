@@ -1,11 +1,16 @@
+import { pageSocialMetadata } from "@/lib/site";
 import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import { renderMarkdown } from "@/lib/markdown";
 
+const title = "Fix guide | Suede Signal Docs";
+const description =
+  "Copy-pasteable fixes for each Suede Signal check: robots.txt rules for AI crawlers, llms.txt templates, JSON-LD schema, metadata, and citable structure.";
+
 export const metadata: Metadata = {
-  title: "Fix guide | Suede Signal Docs",
-  description:
-    "Copy-pasteable fixes for each Suede Signal check: robots.txt rules for AI crawlers, llms.txt templates, JSON-LD schema, metadata, and citable structure.",
+  title,
+  description,
+  ...pageSocialMetadata("/docs/fixes", title, description),
   alternates: { canonical: "/docs/fixes" },
   keywords: keywordsFor("/docs/fixes"),
 };
