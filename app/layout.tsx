@@ -82,6 +82,7 @@ const orgSchema = {
       "@id": `${SITE_URL}/#software`,
       name: "Suede Signal",
       url: SITE_URL,
+      provider: { "@id": "https://suedeai.ai/#organization" },
       applicationCategory: "SEOApplication",
       operatingSystem: "Web",
       isPartOf: { "@id": `${SITE_URL}/#website` },

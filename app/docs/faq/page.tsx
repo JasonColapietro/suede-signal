@@ -70,6 +70,10 @@ export default function FaqPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": "https://signal.suedeai.ai/docs/faq#faqpage",
+    url: "https://signal.suedeai.ai/docs/faq",
+    isPartOf: { "@id": "https://signal.suedeai.ai/#website" },
+    publisher: { "@id": "https://suedeai.ai/#organization" },
     mainEntity: FAQS.map((f) => ({
       "@type": "Question",
       name: f.q,
