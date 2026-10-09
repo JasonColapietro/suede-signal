@@ -14,12 +14,22 @@ export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
+const TITLE_SUFFIX = " | Suede Signal";
+
+// Keep rendered <title> within 60 characters: drop the brand suffix when
+// the article title plus suffix would run over.
+function articleTitle(title: string): Metadata["title"] {
+  return title.length + TITLE_SUFFIX.length <= 60
+    ? `${title}${TITLE_SUFFIX}`
+    : { absolute: title };
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
   return {
-    title: `${article.title} | Suede Signal`,
+    title: articleTitle(article.title),
     description: article.description,
     alternates: { canonical: `/articles/${article.slug}` },
     keywords: keywordsFor(`/articles/${article.slug}`),
@@ -52,17 +62,42 @@ export default async function ArticlePage({ params }: Props) {
   const article = getArticle(slug);
   if (!article) notFound();
 
+  const pageUrl = `${SITE_URL}/articles/${article.slug}`;
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    datePublished: article.date,
-    dateModified: article.date,
-    mainEntityOfPage: `${SITE_URL}/articles/${article.slug}`,
-    author: { "@type": "Organization", name: "Suede AI", url: "https://suedeai.ai" },
-    publisher: { "@type": "Organization", name: "Suede AI", url: "https://suedeai.ai" },
-    keywords: keywordsFor(`/articles/${article.slug}`).join(", "),
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: article.title,
+        description: article.description,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        primaryImageOfPage: { "@id": `${pageUrl}#primaryimage` },
+        mainEntity: { "@id": `${pageUrl}#article` },
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#primaryimage`,
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
+        width: 1200,
+        height: 630,
+      },
+      {
+        "@type": "Article",
+        "@id": `${pageUrl}#article`,
+        headline: article.title,
+        description: article.description,
+        image: OG_IMAGE,
+        datePublished: article.date,
+        dateModified: article.date,
+        mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+        author: { "@id": "https://suedeai.ai/#organization" },
+        publisher: { "@id": "https://suedeai.ai/#organization" },
+        keywords: keywordsFor(`/articles/${article.slug}`).join(", "),
+      },
+    ],
   };
 
   return (
