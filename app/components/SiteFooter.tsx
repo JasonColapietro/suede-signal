@@ -38,6 +38,16 @@ export function SiteFooter() {
       <p className="mt-4 text-center">
         Suede Signal runs read-only checks against your public pages. Nothing is stored.
       </p>
+      <p className="mt-2 text-center">
+        Built by{" "}
+        <a
+          href="https://suedeai.ai/founder"
+          className="transition hover:text-foreground"
+        >
+          Jason Colapietro
+        </a>
+        , founder of Suede AI
+      </p>
     </footer>
   );
 }
