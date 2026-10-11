@@ -6,7 +6,7 @@ import { renderMarkdown } from "@/lib/markdown";
 
 const title = "Scoring & lanes | Suede Signal Docs";
 const description =
-  "The full methodology: five weighted lanes, the 26 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
+  "The full methodology: five weighted lanes, the 23 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
 
 export const metadata: Metadata = {
   title,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const BODY = `
-Each audit runs the same 26 deterministic checks against three fetches: the page you submit, the origin's \`robots.txt\`, and the origin's \`llms.txt\`. No LLM calls, no sampling. The same page state scores the same.
+Each audit runs 23 deterministic checks against three fetches: the page you submit, the origin's \`robots.txt\`, and the origin's \`llms.txt\`. No LLM calls, no sampling. The same page state scores the same.
 
 ## How is the score computed?
 
@@ -43,7 +43,7 @@ Worked example: if you score 100 on everything except Structured Data at 33 (one
 
 ## Lane 1: AI Crawler Access (weight 25)
 
-Whether AI engines are allowed to read you at all. If \`robots.txt\` is missing entirely, all crawlers are allowed by default and the lane treats that as open access.
+Whether AI engines are allowed to read you at all. If \`robots.txt\` is missing entirely, all crawlers are allowed by default and the lane treats that as open access: one passing "robots.txt reachable" check stands in for the six bot checks.
 
 - **GPTBot allowed**: OpenAI's crawler (training and, increasingly, retrieval for answers).
 - **ClaudeBot allowed**: Anthropic's crawler.

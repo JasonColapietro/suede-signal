@@ -148,7 +148,7 @@ export default async function ArticlePage({ params }: Props) {
           How visible is your site to AI engines?
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-          Run the free audit: 26 checks, graded in seconds, nothing stored.
+          Run the free audit: 23 checks, graded in seconds, nothing stored.
         </p>
         <Link
           href="/"

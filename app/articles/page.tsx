@@ -8,7 +8,7 @@ import { SiteFooter } from "@/app/components/SiteFooter";
 
 const title = "AI Visibility Guides and Articles | Suede Signal";
 const description =
-  "Six guides to AI visibility: llms.txt, AI crawler policy, JSON-LD, citable writing, and community mentions, mapped to the Suede Signal audit lanes.";
+  "Six AI visibility guides: llms.txt, AI crawler policy, JSON-LD, citable writing, SEO overlap and community mentions, with a map to the Suede Signal audit lanes.";
 
 export const metadata: Metadata = {
   title,
@@ -102,10 +102,10 @@ export default function ArticlesIndex() {
           AI visibility guides
         </h1>
         <p className="mt-3 max-w-xl text-muted">
-          Six practitioner guides to the fundamentals the Suede Signal audit checks:
-          AI crawler access, llms.txt, structured data, citable writing, and the
-          community threads AI engines learn from. Each guide includes an example you
-          can adapt to your own site.
+          Six practitioner guides. Four map to what the audit checks (AI crawler
+          access, llms.txt, structured data, citable writing); two cover where SEO
+          carries over and the community threads AI engines learn from. Each guide
+          includes an example you can adapt to your own site.
         </p>
       </section>
       <section className="mt-8 space-y-3">
