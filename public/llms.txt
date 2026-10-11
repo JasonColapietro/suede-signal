@@ -26,6 +26,13 @@
 - [Suede AI](https://suedeai.ai): the studio behind Suede Signal
 - [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
 
+## Related Suede tools
+
+- [Suede Audit](https://optimize.suedeai.ai/): Free AI visibility audit: check crawler access, entity schema, metadata, content structure and answer-engine signals. Get a score and prioritized repairs.
+- [Suede AI SEO](https://seo.suedeai.ai/): GEO and SEO agency in West Palm Beach, FL, run by Jason Colapietro.
+- [Suede ACP/x402 Performance Engine](https://perform.suedeai.ai): Score your ACP/x402 readiness in 60 seconds. Free, no account required.
+- [Claude Code Field Notes](https://claude.suedeai.ai): Six lessons from operating 20+ live software surfaces with Claude Code and AI coding agents.
+
 ## Source and citation guide
 
 - [AI Instructions](https://signal.suedeai.ai/ai-instructions): Site identity, authoritative sources and citation guidance.

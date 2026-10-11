@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { keywordsFor } from "@/lib/keywords";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { articles, getArticle } from "@/lib/articles";
+import { articles, getArticle, type Article } from "@/lib/articles";
 import { renderMarkdown } from "@/lib/markdown";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
@@ -12,6 +12,16 @@ type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
+}
+
+// The next `count` articles after this one, wrapping to the start, so every
+// article is linked from other articles rather than only from the index.
+function nextArticles(slug: string, count: number): Article[] {
+  const i = articles.findIndex((a) => a.slug === slug);
+  return Array.from(
+    { length: Math.min(count, articles.length - 1) },
+    (_, k) => articles[(i + 1 + k) % articles.length],
+  );
 }
 
 const TITLE_SUFFIX = " | Suede Signal";
@@ -153,18 +163,15 @@ export default async function ArticlePage({ params }: Props) {
           More articles
         </h2>
         <div className="mt-4 space-y-2">
-          {articles
-            .filter((a) => a.slug !== article.slug)
-            .slice(0, 3)
-            .map((a) => (
-              <Link
-                key={a.slug}
-                href={`/articles/${a.slug}`}
-                className="block rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition hover:border-accent"
-              >
-                <span className="font-medium text-foreground">{a.title}</span>
-              </Link>
-            ))}
+          {nextArticles(article.slug, 3).map((a) => (
+            <Link
+              key={a.slug}
+              href={`/articles/${a.slug}`}
+              className="block rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition hover:border-accent"
+            >
+              <span className="font-medium text-foreground">{a.title}</span>
+            </Link>
+          ))}
         </div>
       </section>
       <SiteFooter />

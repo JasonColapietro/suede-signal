@@ -1,8 +1,33 @@
 import Link from "next/link";
+import { RELATED_SUEDE_TOOLS } from "@/lib/relatedTools";
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border pt-6 pb-2 text-xs text-muted">
+      <section aria-labelledby="related-suede-tools" className="mb-8">
+        <h2
+          id="related-suede-tools"
+          className="text-center text-xs font-semibold tracking-wide text-muted uppercase"
+        >
+          Related Suede tools
+        </h2>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {RELATED_SUEDE_TOOLS.map((tool) => (
+            <li
+              key={tool.href}
+              className="rounded-2xl border border-border bg-surface px-4 py-3 shadow-sm"
+            >
+              <a
+                href={tool.href}
+                className="text-sm font-semibold text-foreground transition hover:text-accent-strong"
+              >
+                {tool.name}
+              </a>
+              <p className="mt-1 leading-relaxed">{tool.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
       <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
         <Link href="/" className="transition hover:text-foreground">
           Audit
