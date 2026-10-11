@@ -1,12 +1,12 @@
 # Suede Signal
 
-> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). 23 deterministic checks, no signup, nothing stored.
+> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). Up to 23 deterministic checks, no signup, nothing stored.
 
 ## Product
 
 - [Run an audit](https://signal.suedeai.ai/): the free audit, competitor comparison, and Mention Watch
 - [Documentation](https://signal.suedeai.ai/docs): what the audit is, how it works, and what it can't promise
-- [Scoring & lanes](https://signal.suedeai.ai/docs/scoring): all 23 checks, lane weights, and grade bands
+- [Scoring & lanes](https://signal.suedeai.ai/docs/scoring): every check, lane weights, and grade bands
 - [Fix guide](https://signal.suedeai.ai/docs/fixes): copy-pasteable fixes for every failing check
 - [Mention Watch](https://signal.suedeai.ai/docs/mention-watch): finding and joining the community threads AI learns from
 - [API reference](https://signal.suedeai.ai/docs/api): POST /api/audit and GET /api/mentions

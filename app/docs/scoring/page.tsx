@@ -6,7 +6,7 @@ import { renderMarkdown } from "@/lib/markdown";
 
 const title = "Scoring & lanes | Suede Signal Docs";
 const description =
-  "The full methodology: five weighted lanes, the 23 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
+  "The full methodology: five weighted lanes, up to 23 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
 
 export const metadata: Metadata = {
   title,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const BODY = `
-Each audit runs 23 deterministic checks against three fetches: the page you submit, the origin's \`robots.txt\`, and the origin's \`llms.txt\`. No LLM calls, no sampling. The same page state scores the same.
+Each audit runs up to 23 deterministic checks against three fetches: the page you submit, the origin's \`robots.txt\`, and the origin's \`llms.txt\`. When the origin has no reachable \`robots.txt\`, one passing check replaces the six bot checks and the report holds 18 checks. No LLM calls, no sampling. The same page state scores the same.
 
 ## How is the score computed?
 
@@ -30,6 +30,8 @@ Each lane's score is simply the percentage of its checks that pass. The overall 
 | Metadata & Sharing | 20 | 5 |
 | Structured Data | 20 | 3 |
 | Trust Signals | 10 | 3 |
+
+The AI Crawler Access count assumes the origin serves a \`robots.txt\`. Without one, that lane runs two checks.
 
 Worked example: if you score 100 on everything except Structured Data at 33 (one of three checks passing), the overall is (25·100 + 25·100 + 20·100 + 20·33 + 10·100) / 100 ≈ **87 → grade B**.
 

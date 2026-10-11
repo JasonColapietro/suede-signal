@@ -21,7 +21,7 @@ Both features of the site are plain HTTP endpoints. There's no authentication an
 
 ## POST /api/audit
 
-Runs the full 23-check audit against one URL and returns the complete report.
+Runs the full audit (up to 23 checks) against one URL and returns the complete report.
 
 \`\`\`bash
 curl -s ${SITE_URL}/api/audit \\

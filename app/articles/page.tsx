@@ -34,7 +34,7 @@ const LANE_GUIDES: LaneGuide[] = [
     lane: "AI Crawler Access",
     weight: 25,
     checks:
-      "Seven checks: robots.txt rules for GPTBot, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended and CCBot, plus a non-empty llms.txt file.",
+      "Up to seven checks: robots.txt rules for GPTBot, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended and CCBot, plus a non-empty llms.txt file.",
     guides: ["which-ai-crawlers-to-allow", "what-is-llms-txt"],
     docs: [],
   },
