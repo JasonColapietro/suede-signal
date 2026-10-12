@@ -1,12 +1,12 @@
 # Suede Signal
 
-> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). 26 deterministic checks, no signup, nothing stored.
+> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). Up to 23 deterministic checks, no signup, nothing stored.
 
 ## Product
 
 - [Run an audit](https://signal.suedeai.ai/): the free audit, competitor comparison, and Mention Watch
 - [Documentation](https://signal.suedeai.ai/docs): what the audit is, how it works, and what it can't promise
-- [Scoring & lanes](https://signal.suedeai.ai/docs/scoring): all 26 checks, lane weights, and grade bands
+- [Scoring & lanes](https://signal.suedeai.ai/docs/scoring): every check, lane weights, and grade bands
 - [Fix guide](https://signal.suedeai.ai/docs/fixes): copy-pasteable fixes for every failing check
 - [Mention Watch](https://signal.suedeai.ai/docs/mention-watch): finding and joining the community threads AI learns from
 - [API reference](https://signal.suedeai.ai/docs/api): POST /api/audit and GET /api/mentions
@@ -25,6 +25,13 @@
 
 - [Suede AI](https://suedeai.ai): the studio behind Suede Signal
 - [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
+
+## Related Suede tools
+
+- [Suede Audit](https://optimize.suedeai.ai/): Free AI visibility audit: check crawler access, entity schema, metadata, content structure and answer-engine signals. Get a score and prioritized repairs.
+- [Suede AI SEO](https://seo.suedeai.ai/): GEO and SEO agency in West Palm Beach, FL, run by Jason Colapietro.
+- [Suede ACP/x402 Performance Engine](https://perform.suedeai.ai): Score your ACP/x402 readiness in 60 seconds. Free, no account required.
+- [Claude Code Field Notes](https://claude.suedeai.ai): Six lessons from operating 20+ live software surfaces with Claude Code and AI coding agents.
 
 ## Source and citation guide
 

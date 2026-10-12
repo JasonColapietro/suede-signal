@@ -2,6 +2,17 @@ import type { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
 
+// Static routes whose main content changed after the default lastmod below.
+const UPDATED: Record<string, string> = {
+  "": "2026-10-11",
+  "/docs": "2026-10-11",
+  "/docs/scoring": "2026-10-11",
+  "/docs/api": "2026-10-11",
+  "/docs/faq": "2026-10-11",
+  "/articles": "2026-10-11",
+  "/docs/mention-watch": "2026-10-11",
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
@@ -14,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/articles",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
-    lastModified: new Date("2026-07-18"),
+    lastModified: new Date(UPDATED[path] ?? "2026-07-18"),
   }));
 
   const articleRoutes = articles.map((a) => ({

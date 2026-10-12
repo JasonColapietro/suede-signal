@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "What does Suede Signal actually check?",
-    a: "26 deterministic checks across five lanes: whether AI crawlers (GPTBot, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, CCBot) can read your site, whether llms.txt exists, metadata and Open Graph quality, JSON-LD structured data, passage-level citability, and trust signals like about pages and freshness markup.",
+    a: "Up to 23 deterministic checks across five lanes: whether AI crawlers (GPTBot, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, CCBot) can read your site, whether llms.txt exists, metadata and Open Graph quality, JSON-LD structured data, passage-level citability, and trust signals like about pages and freshness markup.",
   },
   {
     q: "Why does AI visibility matter?",

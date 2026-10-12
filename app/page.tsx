@@ -448,7 +448,7 @@ function MentionWatch({ brand }: { brand: string }) {
 const FAQS = [
   {
     q: "What does Suede Signal actually check?",
-    a: "26 deterministic checks across five lanes: whether AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot) can read your site, whether llms.txt exists, metadata and Open Graph quality, JSON-LD structured data, passage-level citability, and trust signals like about pages and freshness markup.",
+    a: "Up to 23 deterministic checks across five lanes: whether AI crawlers (GPTBot, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, CCBot) can read your site, whether llms.txt exists, metadata and Open Graph quality, JSON-LD structured data, passage-level citability, and trust signals like about pages and freshness markup.",
   },
   {
     q: "Why does AI visibility matter?",
@@ -706,7 +706,7 @@ export default function Home() {
                   See what answer engines can actually read on your site
                 </h3>
                 <p className="mt-2 text-muted">
-                  Paste a URL, get an A–F grade in seconds. Five weighted lanes, 26 checks, and a
+                  Paste a URL, get an A–F grade in seconds. Five weighted lanes, up to 23 checks, and a
                   ranked fix list, the same lanes the Suede audit stack runs on production sites.
                 </p>
               </div>
