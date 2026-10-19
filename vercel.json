@@ -1,5 +1,12 @@
 {
   "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ] && exit 0 || exit 1",
+  "redirects": [
+    {
+      "source": "/ai-instructions.html",
+      "destination": "/ai-instructions",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/ai-instructions",
