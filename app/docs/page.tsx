@@ -6,7 +6,7 @@ import { renderMarkdown } from "@/lib/markdown";
 
 const title = "Documentation | Suede Signal";
 const description =
-  "How Suede Signal works: a free, instant AI-visibility audit with up to 23 deterministic checks across five weighted lanes. No signup, nothing stored.";
+  "How Suede Signal works: a free, instant AI-visibility audit with up to 22 deterministic checks across five weighted lanes. No signup, nothing stored.";
 
 export const metadata: Metadata = {
   title,
@@ -34,7 +34,7 @@ It is **not** a rank tracker, a guarantee of citation, or a crawl of your whole 
 
 1. You submit a URL (up to three: yours plus two competitors).
 2. The server fetches the page, \`robots.txt\`, and \`llms.txt\` from the site's origin, following up to 5 redirects, with a 4&nbsp;MB response cap.
-3. Up to 23 checks run across five weighted lanes: AI Crawler Access (25), Metadata & Sharing (20), Structured Data (20), Citability (25), and Trust Signals (10).
+3. Up to 22 checks run across five weighted lanes: AI Crawler Access (25), Metadata & Sharing (20), Structured Data (20), Citability (25), and Trust Signals (10).
 4. Lane scores are the percentage of passed checks in the lane; the overall score is the weight-adjusted average, mapped to a grade.
 5. Failed checks with fixes are ranked by lane weight into the "fix these first" list.
 

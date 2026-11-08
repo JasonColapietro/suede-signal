@@ -85,8 +85,8 @@ test("the engine runs five lanes with checks in each", () => {
   for (const [title, lane] of LANES) assert.ok(lane.checks > 0, `${title} has no checks`);
 });
 
-test("a missing robots.txt lowers the total from 23 to 18", () => {
-  assert.equal(TOTAL, 23);
+test("a missing robots.txt lowers the total from 22 to 18", () => {
+  assert.equal(TOTAL, 22);
   assert.equal(NO_ROBOTS_TOTAL, 18);
   assert.deepEqual([...NO_ROBOTS_LANES.keys()], [...LANES.keys()]);
   for (const [title, lane] of NO_ROBOTS_LANES) {

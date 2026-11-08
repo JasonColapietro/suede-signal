@@ -8,7 +8,7 @@ One page, one API route, zero LLM calls. `POST /api/audit` fetches the page, `ro
 
 | Lane | Weight | Checks |
 |---|---|---|
-| AI Crawler Access | 25 | GPTBot / ClaudeBot / PerplexityBot / Google-Extended / CCBot allowed, llms.txt present |
+| AI Crawler Access | 25 | Googlebot / Bingbot / OAI-SearchBot / Claude-SearchBot / PerplexityBot allowed, llms.txt present |
 | Metadata & Sharing | 20 | Title, meta description, canonical, Open Graph, HTTPS |
 | Structured Data | 20 | JSON-LD present, entity schema, FAQ schema |
 | Citability | 25 | Single H1, section structure, content depth, lists, question-form headings |
