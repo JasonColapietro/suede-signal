@@ -21,7 +21,7 @@ Both features of the site are plain HTTP endpoints. There's no authentication an
 
 ## POST /api/audit
 
-Runs the full audit (up to 23 checks) against one URL and returns the complete report.
+Runs the full audit (up to 22 checks) against one URL and returns the complete report.
 
 \`\`\`bash
 curl -s ${SITE_URL}/api/audit \\
@@ -31,7 +31,7 @@ curl -s ${SITE_URL}/api/audit \\
 
 **Request body**: \`{ "url": string }\`. The scheme is optional; \`https://\` is assumed.
 
-**Response 200**: the report:
+**Response 200**: abbreviated report example (other lanes and checks omitted):
 
 \`\`\`json
 {
@@ -45,13 +45,13 @@ curl -s ${SITE_URL}/api/audit \\
       "id": "crawler-access",
       "title": "AI Crawler Access",
       "weight": 25,
-      "score": 86,
+      "score": 83,
       "checks": [
         {
-          "id": "bot-GPTBot",
-          "label": "GPTBot allowed",
+          "id": "bot-OAI-SearchBot",
+          "label": "OAI-SearchBot allowed",
           "passed": true,
-          "detail": "GPTBot can crawl your site."
+          "detail": "robots.txt permits OAI-SearchBot on the audited path; indexing and citation are not measured."
         }
       ]
     }

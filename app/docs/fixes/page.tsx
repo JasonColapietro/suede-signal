@@ -20,29 +20,23 @@ Each check in the audit has a concrete fix. This page collects them with copy-pa
 
 ## How do I unblock AI crawlers? (lane weight 25)
 
-Open \`robots.txt\` at your site root and look for \`Disallow: /\` under a \`User-agent\` naming an AI bot. To allow the engines the audit checks:
+Check the final host's \`robots.txt\` and the rules for the page you audited. If the audit reports unknown access, restore the robots response and retry first. Server errors and timeouts are not missing files.
+
+For a public path that should be searchable, a narrow allow rule can preserve private exclusions. For example:
 
 \`\`\`text
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
 User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
+Disallow: /private/
+Allow: /private/public-guide
 \`\`\`
 
-If you have no robots.txt, that's fine. Everything is allowed by default. Only add rules when you want to *restrict* something. And remember robots.txt is a request, not enforcement: it keeps honest crawlers out, nothing more.
+Merge changes with the site's existing rules. Named groups replace wildcard fallback for the named crawler, so carry forward every private-path exclusion that should still apply. A missing file (ordinary 4xx other than 429) imposes no crawl rules. Robots directives control cooperative crawlers, not access authorization.
+
+Training crawlers such as GPTBot, ClaudeBot and CCBot and the Google-Extended control are separate choices; opting out does not require a change to improve this search-crawler score. User-triggered fetchers are separate too. Allowing search crawlers does not guarantee indexing or citation.
 
 **llms.txt**: serve a markdown file at \`/llms.txt\` that maps your key pages:
 

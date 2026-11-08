@@ -32,12 +32,11 @@ export type AuditReport = {
 };
 
 const AI_CRAWLERS = [
-  "GPTBot",
-  "ClaudeBot",
-  "Claude-Web",
+  "Googlebot",
+  "Bingbot",
+  "OAI-SearchBot",
+  "Claude-SearchBot",
   "PerplexityBot",
-  "Google-Extended",
-  "CCBot",
 ];
 
 const FETCH_HEADERS = {
@@ -183,29 +182,36 @@ function laneScore(checks: CheckResult[]): number {
 
 // ---- Lanes ----------------------------------------------------------------
 
-function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean): Lane {
+function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean, robotsStatus: number, urlPath: string): Lane {
   const checks: CheckResult[] = [];
 
-  if (robotsTxt === null) {
+  if (robotsTxt === null && !(robotsStatus >= 400 && robotsStatus < 500 && robotsStatus !== 429)) {
+    checks.push({
+      id: "robots-unavailable",
+      label: "robots.txt availability verified",
+      passed: false,
+      detail: `robots.txt could not be checked (${robotsStatus ? `HTTP ${robotsStatus}` : "network or redirect failure"}). Crawler eligibility is unknown.`,
+      fix: "Restore robots.txt availability and re-run the audit to verify crawler access.",
+    });
+  } else if (robotsTxt === null) {
     checks.push({
       id: "robots-missing",
-      label: "robots.txt reachable",
+      label: "robots.txt imposes no crawl rules",
       passed: true, // no robots.txt = everything allowed; not a block
-      detail: "No robots.txt found. All crawlers allowed by default.",
+      detail: `robots.txt returned HTTP ${robotsStatus}. No crawl rules apply from this response.`,
     });
   } else {
     for (const bot of AI_CRAWLERS) {
-      // blocked if a User-agent section naming this bot (or *) contains Disallow: /
-      const blocked = isBotBlocked(robotsTxt, bot);
+      const blocked = isBotBlocked(robotsTxt, bot, urlPath);
       checks.push({
         id: `bot-${bot}`,
         label: `${bot} allowed`,
         passed: !blocked,
         detail: blocked
-          ? `${bot} is disallowed in robots.txt. This AI engine cannot read your site.`
-          : `${bot} can crawl your site.`,
+          ? `robots.txt disallows ${bot} on the audited path.`
+          : `robots.txt permits ${bot} on the audited path; indexing and citation are not measured.`,
         fix: blocked
-          ? `Remove the Disallow rule for ${bot} in robots.txt so AI engines can cite you.`
+          ? `If this page should be discoverable, allow ${bot} on its path in robots.txt. Keep intentional private paths excluded.`
           : undefined,
       });
     }
@@ -232,25 +238,45 @@ function auditCrawlerAccess(robotsTxt: string | null, llmsTxtFound: boolean): La
   };
 }
 
-function isBotBlocked(robotsTxt: string, bot: string): boolean {
-  const lines = robotsTxt.split(/\r?\n/).map((l) => l.trim());
-  let applies = false;
-  let blocked = false;
-  for (const line of lines) {
-    const ua = line.match(/^user-agent:\s*(.+)$/i);
-    if (ua) {
-      const agent = ua[1].trim().toLowerCase();
-      applies = agent === bot.toLowerCase();
-      continue;
-    }
-    if (applies) {
-      const dis = line.match(/^disallow:\s*(.*)$/i);
-      if (dis && dis[1].trim() === "/") blocked = true;
-      const allow = line.match(/^allow:\s*(.*)$/i);
-      if (allow && allow[1].trim() === "/") blocked = false;
+function isBotBlocked(robotsTxt: string, bot: string, urlPath: string): boolean {
+  type Rule = { allow: boolean; path: string };
+  const groups: { agents: string[]; rules: Rule[] }[] = [];
+  let current: (typeof groups)[number] | undefined;
+  for (const raw of robotsTxt.split(/\r?\n/)) {
+    const line = raw.replace(/#.*$/, "").trim();
+    const colon = line.indexOf(":");
+    if (colon < 0) continue;
+    const field = line.slice(0, colon).trim().toLowerCase();
+    const value = line.slice(colon + 1).trim();
+    if (field === "user-agent") {
+      if (!current || current.rules.length) {
+        current = { agents: [], rules: [] };
+        groups.push(current);
+      }
+      current.agents.push(value.toLowerCase());
+    } else if (current && (field === "allow" || field === "disallow")) {
+      current.rules.push({ allow: field === "allow", path: value });
     }
   }
-  return blocked;
+  const specific = groups.filter((group) => group.agents.includes(bot.toLowerCase()));
+  const selected = specific.length ? specific : groups.filter((group) => group.agents.includes("*"));
+  let best: Rule | undefined;
+  let bestSpecificity = -1;
+  for (const rule of selected.flatMap((group) => group.rules)) {
+    if (!rule.path) continue;
+    const anchored = rule.path.endsWith("$");
+    const body = anchored ? rule.path.slice(0, -1) : rule.path;
+    const escaped = body.split("*").map((part) => part.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join(".*");
+    if (!new RegExp(`^${escaped}${anchored ? "$" : ""}`).test(urlPath)) continue;
+    // Google robotstxt MatchAllow/MatchDisallow use the complete pattern
+    // length, including wildcard and end-anchor operators, for precedence.
+    const specificity = rule.path.length;
+    if (!best || specificity > bestSpecificity || (specificity === bestSpecificity && rule.allow)) {
+      best = rule;
+      bestSpecificity = specificity;
+    }
+  }
+  return best ? !best.allow : false;
 }
 
 function auditMetadata(html: string, finalUrl: string): Lane {
@@ -469,14 +495,8 @@ function toGrade(score: number): string {
 export async function runAudit(rawUrl: string): Promise<AuditReport> {
   let url = rawUrl.trim();
   if (!/^https?:\/\//i.test(url)) url = `https://${url}`;
-  const parsed = new URL(url); // throws on invalid, caught by the route
-
-  const origin = parsed.origin;
-  const [page, robots, llms] = await Promise.all([
-    fetchText(url),
-    fetchText(`${origin}/robots.txt`),
-    fetchText(`${origin}/llms.txt`),
-  ]);
+  new URL(url); // throws on invalid, caught by the route
+  const page = await fetchText(url);
 
   if (!page.ok) {
     throw new Error(
@@ -486,11 +506,16 @@ export async function runAudit(rawUrl: string): Promise<AuditReport> {
     );
   }
 
+  const parsed = new URL(page.finalUrl);
+  const [robots, llms] = await Promise.all([
+    fetchText(`${parsed.origin}/robots.txt`),
+    fetchText(`${parsed.origin}/llms.txt`),
+  ]);
   const llmsFound = llms.ok && llms.text.trim().length > 0 && !/<html/i.test(llms.text);
   const robotsTxt = robots.ok ? robots.text : null;
 
   const lanes = [
-    auditCrawlerAccess(robotsTxt, llmsFound),
+    auditCrawlerAccess(robotsTxt, llmsFound, robots.status, parsed.pathname + parsed.search),
     auditMetadata(page.text, page.finalUrl),
     auditSchema(page.text),
     auditCitability(page.text),

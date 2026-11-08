@@ -6,7 +6,7 @@ import { renderMarkdown } from "@/lib/markdown";
 
 const title = "Scoring & lanes | Suede Signal Docs";
 const description =
-  "The full methodology: five weighted lanes, up to 23 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
+  "The full methodology: five weighted lanes, up to 22 deterministic checks, how lane scores roll up to the 0–100 score, and the A–F grade bands.";
 
 export const metadata: Metadata = {
   title,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const BODY = `
-Each audit runs up to 23 deterministic checks against three fetches: the page you submit, the origin's \`robots.txt\`, and the origin's \`llms.txt\`. When the origin has no reachable \`robots.txt\`, one passing check replaces the six bot checks and the report holds 18 checks. No LLM calls, no sampling. The same page state scores the same.
+Each audit runs up to 22 deterministic checks against three fetches: the page you submit, the final origin's \`robots.txt\`, and the final origin's \`llms.txt\`. When \`robots.txt\` returns an ordinary 4xx response other than 429, one passing no-rules check replaces the five bot checks and the report holds 18 checks. For a server error, 429, network failure or redirect failure, one failed availability check replaces them instead: eligibility is unknown, not blocked or allowed. The other lanes still run. No LLM calls, no sampling. The same page state scores the same.
 
 ## How is the score computed?
 
@@ -25,11 +25,13 @@ Each lane's score is simply the percentage of its checks that pass. The overall 
 
 | Lane | Weight | Checks |
 |---|---|---|
-| AI Crawler Access | 25 | 7 |
+| AI Crawler Access | 25 | 6 |
 | Citability | 25 | 5 |
 | Metadata & Sharing | 20 | 5 |
 | Structured Data | 20 | 3 |
 | Trust Signals | 10 | 3 |
+
+The crawler methodology now measures five search crawlers rather than the earlier training-crawler list. Earlier scores are not directly comparable; re-run the same URLs to establish a baseline with this method.
 
 The AI Crawler Access count assumes the origin serves a \`robots.txt\`. Without one, that lane runs two checks.
 
@@ -45,17 +47,18 @@ Worked example: if you score 100 on everything except Structured Data at 33 (one
 
 ## Lane 1: AI Crawler Access (weight 25)
 
-Whether AI engines are allowed to read you at all. If \`robots.txt\` is missing entirely, all crawlers are allowed by default and the lane treats that as open access: one passing "robots.txt reachable" check stands in for the six bot checks.
+Whether the audited path is permitted for search crawlers. A missing robots file imposes no rules; a failed fetch leaves eligibility unknown. Availability is scored separately from the independent llms.txt check.
 
-- **GPTBot allowed**: OpenAI's crawler (training and, increasingly, retrieval for answers).
-- **ClaudeBot allowed**: Anthropic's crawler.
-- **Claude-Web allowed**: Anthropic's on-demand fetcher.
-- **PerplexityBot allowed**: Perplexity's index crawler.
-- **Google-Extended allowed**: controls Gemini training use of your content.
-- **CCBot allowed**: Common Crawl, an upstream corpus for many models.
-- **llms.txt present**: a curated markdown map of your site for AI consumers, served at \`/llms.txt\`. The check requires a non-empty file that isn't an HTML error page.
+- **Googlebot allowed**: Google's search crawler.
+- **Bingbot allowed**: Bing's search crawler.
+- **OAI-SearchBot allowed**: OpenAI's search crawler.
+- **Claude-SearchBot allowed**: Anthropic's search crawler.
+- **PerplexityBot allowed**: Perplexity's search crawler.
+- **llms.txt present**: a curated markdown map, served at \`/llms.txt\`. The check requires a non-empty file that isn't an HTML error page. Its presence is a discovery-file check, not proof of indexation or citation.
 
-A bot counts as blocked when a \`User-agent\` section naming it contains \`Disallow: /\` (a later \`Allow: /\` in the same section unblocks it). Note the parser matches sections that name the bot explicitly. A blanket \`User-agent: *\` block is a broader problem an engine-specific check doesn't flag.
+Named groups override wildcard rules; repeated matching groups are combined. Rules apply to the final page path and query. The longest matching path wins, with Allow winning equal specificity. Wildcards and terminal end anchors are supported.
+
+GPTBot, ClaudeBot and CCBot cover model-development or dataset collection. Google-Extended controls separate Gemini training and grounding uses, not inclusion in Google Search. Blocking them does not lower this search-crawler score. User-triggered fetch agents are also distinct from search indexing. See [OpenAI's crawler documentation](https://developers.openai.com/api/docs/bots), [Anthropic's crawler guidance](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler), [Google's crawler overview](https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers) and [Perplexity's bots documentation](https://docs.perplexity.ai/docs/resources/perplexity-crawlers). Permission alone does not establish indexation, citation or recommendation.
 
 ## Lane 2: Metadata & Sharing (weight 20)
 
