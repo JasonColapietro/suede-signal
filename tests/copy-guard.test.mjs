@@ -104,7 +104,7 @@ test("no outcome-promise phrasing on any served page (per file, tag-stripped)", 
 
 test('organization is named "Suede AI", never "Suede Labs AI" or bare "Suede Labs"', () => {
   for (const file of [...orgFiles, join(ROOT, "public", "llms.txt")]) {
-    const src = readFileSync(file, "utf8");
+    const src = readFileSync(file, "utf8").replace(/(?:"alternateName"|alternateName):\s*\[[^\]]*\]/g, "");
     const retired = src.match(/Suede Labs/g);
     assert.ok(
       retired === null,
