@@ -8,7 +8,7 @@ import { SiteFooter } from "@/app/components/SiteFooter";
 
 const title = "AI Visibility Guides and Articles | Suede Signal";
 const description =
-  "Six AI visibility guides: llms.txt, AI crawler policy, JSON-LD, citable writing, SEO overlap and community mentions, with a map to the Suede Signal audit lanes.";
+  "Nine AI visibility guides on llms.txt, crawler policy, JSON-LD and citable writing, plus Palm Beach County field notes from Suede AI founder Jason Colapietro.";
 
 export const metadata: Metadata = {
   title,
@@ -102,10 +102,11 @@ export default function ArticlesIndex() {
           AI visibility guides
         </h1>
         <p className="mt-3 max-w-xl text-muted">
-          Six practitioner guides. Four map to what the audit checks (AI crawler
-          access, llms.txt, structured data, citable writing); two cover where SEO
-          carries over and the community threads AI engines learn from. Each guide
-          includes an example you can adapt to your own site.
+          Six practitioner guides and three field notes. Four guides map to what the
+          audit checks (AI crawler access, llms.txt, structured data, citable
+          writing); two cover where SEO carries over and the community threads AI
+          engines learn from. The field notes, written by Suede AI founder Jason
+          Colapietro in West Palm Beach, apply the audit to Palm Beach County sites.
         </p>
       </section>
       <section className="mt-8 space-y-3">
@@ -180,6 +181,40 @@ export default function ArticlesIndex() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground">
+          What are the West Palm Beach field notes?
+        </h2>
+        <p className="mt-3 text-muted">
+          Three first-person notes from{" "}
+          <a href="https://suedeai.ai/founder" className={inlineLink}>
+            Jason Colapietro
+          </a>
+          , founder of Suede AI, on running the audit for businesses in West Palm Beach,
+          Jupiter and across Palm Beach County, Florida.
+        </p>
+        <ul className="mt-6 space-y-3">
+          {articles
+            .filter((a) => a.byline === "founder")
+            .map((a) => (
+              <li key={a.slug} className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+                <Link href={`/articles/${a.slug}`} className={`font-semibold ${inlineLink}`}>
+                  {a.title}
+                </Link>
+                <p className="mt-1 text-sm text-muted">{a.description}</p>
+              </li>
+            ))}
+        </ul>
+        <p className="mt-6 text-sm text-muted">
+          Want the same review done for you? The{" "}
+          <a href="https://suedeai.agency/assessment" className={inlineLink}>
+            Suede AI assessment
+          </a>{" "}
+          covers technical SEO, AI visibility and web development for Palm Beach County
+          businesses.
+        </p>
       </section>
 
       <section className="mt-16">

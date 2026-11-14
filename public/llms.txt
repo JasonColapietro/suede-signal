@@ -21,10 +21,22 @@
 - [AI Visibility Extends SEO, It Does Not Replace It](https://signal.suedeai.ai/articles/ai-visibility-vs-seo): what carries over, what changes, what to measure
 - [Where AI Engines Learn What People Think About Brands](https://signal.suedeai.ai/articles/where-ai-engines-learn-about-brands): community threads, licensing deals, and disclosure-first participation
 
+## Field notes from West Palm Beach
+
+First-person notes by Jason Colapietro, founder of Suede AI, on applying the audit to businesses in West Palm Beach, Jupiter and Palm Beach County, Florida.
+
+- [Reading Your Brand's AI Signal: A Palm Beach County Audit](https://signal.suedeai.ai/articles/palm-beach-county-ai-signal-audit): a six-step AI visibility audit for local service businesses
+- [How Jason Colapietro's Training Shapes Suede Signal](https://signal.suedeai.ai/articles/jason-colapietro-training-suede-signal): Semrush, HubSpot AEO and Claude Academy training mapped to the audit's lanes
+- [Robots.txt Mistakes Local Florida Sites Make](https://signal.suedeai.ai/articles/robots-txt-mistakes-florida-sites): six crawler eligibility mistakes and the exact fixes
+
 ## Company
 
 - [Suede AI](https://suedeai.ai): the studio behind Suede Signal
 - [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
+- [Suede AI SEO, GEO and web development](https://suedeai.agency/): the West Palm Beach practice behind the audit; start with the [assessment](https://suedeai.agency/assessment)
+- [Jason Colapietro, founder](https://suedeai.ai/founder): canonical founder page; personal site at [jasoncolapietro.com](https://jasoncolapietro.com/)
+- [Evidence](https://seo.suedeai.ai/evidence): receipts for every published claim
+- [Jupiter Social](https://jupitersocialfl.com/): the Jupiter, Florida magazine published with Suede AI
 
 ## Related Suede tools
 

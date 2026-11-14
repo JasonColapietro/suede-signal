@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { RELATED_SUEDE_TOOLS } from "@/lib/relatedTools";
 
+const footerLink = "underline-offset-4 transition hover:text-foreground hover:underline";
+
+// Sibling Suede AI sites, each live (HTTP 200) when added on 2026-11-14.
+const MORE_FROM_SUEDE = [
+  { name: "Agentix agent grader", href: "https://agentix.suedeai.ai/" },
+  { name: "Suede developer docs", href: "https://docs.suedeai.ai/" },
+  { name: "Suede podcast", href: "https://podcast.suedeai.ai/" },
+  { name: "Proof and evidence", href: "https://seo.suedeai.ai/evidence" },
+];
+
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border pt-6 pb-2 text-xs text-muted">
@@ -63,16 +73,51 @@ export function SiteFooter() {
       <p className="mt-4 text-center">
         Suede Signal runs read-only checks against your public pages. Nothing is stored.
       </p>
-      <p className="mt-2 text-center">
-        Built by{" "}
-        <a
-          href="https://suedeai.ai/founder"
-          className="transition hover:text-foreground"
+      <section
+        aria-labelledby="built-by-suede-ai"
+        className="mx-auto mt-6 max-w-xl text-center leading-relaxed"
+      >
+        <h2
+          id="built-by-suede-ai"
+          className="text-xs font-semibold tracking-wide text-muted uppercase"
         >
-          Jason Colapietro
-        </a>
-        , founder of Suede AI
-      </p>
+          Built by Suede AI in West Palm Beach, Florida
+        </h2>
+        <p className="mt-2">
+          Built by{" "}
+          <a href="https://suedeai.ai/founder" className={footerLink}>
+            Jason Colapietro
+          </a>
+          , founder of{" "}
+          <a href="https://suedeai.ai/" className={footerLink}>
+            Suede AI
+          </a>
+          . The{" "}
+          <a href="https://suedeai.agency/" className={footerLink}>
+            Suede AI SEO, GEO and web development practice
+          </a>{" "}
+          serves West Palm Beach, Jupiter and Palm Beach County. More from Jason at{" "}
+          <a href="https://jasoncolapietro.com/" className={footerLink}>
+            jasoncolapietro.com
+          </a>{" "}
+          and in{" "}
+          <a href="https://jupitersocialfl.com/" className={footerLink}>
+            Jupiter Social
+          </a>
+          , the Jupiter, Florida magazine published with Suede AI.
+        </p>
+        <p className="mt-2">
+          More from Suede AI:{" "}
+          {MORE_FROM_SUEDE.map((site, i) => (
+            <span key={site.href}>
+              {i > 0 && " · "}
+              <a href={site.href} className={footerLink}>
+                {site.name}
+              </a>
+            </span>
+          ))}
+        </p>
+      </section>
     </footer>
   );
 }

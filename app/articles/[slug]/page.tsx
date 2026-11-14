@@ -26,6 +26,19 @@ function nextArticles(slug: string, count: number): Article[] {
 
 const TITLE_SUFFIX = " | Suede Signal";
 
+// Where founder field notes are written for. Places only: no address, phone
+// or hours, and no new Organization or Person nodes.
+const FIELD_NOTE_PLACES = [
+  "West Palm Beach",
+  "Jupiter",
+  "Palm Beach Gardens",
+  "Palm Beach County",
+].map((name) => ({
+  "@type": "Place",
+  name: `${name}, Florida`,
+  address: { "@type": "PostalAddress", addressRegion: "FL", addressCountry: "US" },
+}));
+
 // Keep rendered <title> within 60 characters: drop the brand suffix when
 // the article title plus suffix would run over.
 function articleTitle(title: string): Metadata["title"] {
@@ -49,6 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       url: `${SITE_URL}/articles/${article.slug}`,
       publishedTime: article.date,
+      ...(article.byline === "founder" ? { authors: ["https://suedeai.ai/founder"] } : {}),
       images: [
         {
           url: OG_IMAGE,
@@ -73,6 +87,7 @@ export default async function ArticlePage({ params }: Props) {
   if (!article) notFound();
 
   const pageUrl = `${SITE_URL}/articles/${article.slug}`;
+  const isFounderNote = article.byline === "founder";
   const articleSchema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -85,6 +100,16 @@ export default async function ArticlePage({ params }: Props) {
         isPartOf: { "@id": `${SITE_URL}/#website` },
         primaryImageOfPage: { "@id": `${pageUrl}#primaryimage` },
         mainEntity: { "@id": `${pageUrl}#article` },
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Suede Signal", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Articles", item: `${SITE_URL}/articles` },
+          { "@type": "ListItem", position: 3, name: article.title, item: pageUrl },
+        ],
       },
       {
         "@type": "ImageObject",
@@ -96,6 +121,9 @@ export default async function ArticlePage({ params }: Props) {
       },
       {
         "@type": "Article",
+        // Founder field notes are blog posts by a named person; the rest are
+        // organization guides. Both reference canonical @ids only.
+        ...(isFounderNote ? { "@type": "BlogPosting" } : {}),
         "@id": `${pageUrl}#article`,
         headline: article.title,
         description: article.description,
@@ -103,8 +131,13 @@ export default async function ArticlePage({ params }: Props) {
         datePublished: article.date,
         dateModified: article.date,
         mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
-        author: { "@id": "https://suedeai.ai/#organization" },
+        author: {
+          "@id": isFounderNote
+            ? "https://suedeai.ai/founder#person"
+            : "https://suedeai.ai/#organization",
+        },
         publisher: { "@id": "https://suedeai.ai/#organization" },
+        ...(isFounderNote ? { about: FIELD_NOTE_PLACES, spatialCoverage: FIELD_NOTE_PLACES } : {}),
         keywords: keywordsFor(`/articles/${article.slug}`).join(", "),
       },
     ],
@@ -135,12 +168,51 @@ export default async function ArticlePage({ params }: Props) {
               timeZone: "UTC",
             })}
           </time>{" "}
-          · {article.readingMinutes} min read · Suede AI
+          · {article.readingMinutes} min read ·{" "}
+          {isFounderNote ? (
+            <a href="https://suedeai.ai/founder" className="transition hover:text-foreground">
+              Jason Colapietro, Suede AI
+            </a>
+          ) : (
+            "Suede AI"
+          )}
         </p>
         <div
           className="prose-suede mt-8"
           dangerouslySetInnerHTML={{ __html: renderMarkdown(article.body) }}
         />
+        {isFounderNote && (
+          <aside
+            aria-label="About the author"
+            className="mt-12 rounded-2xl border border-border bg-surface p-6 shadow-sm"
+          >
+            <p className="text-xs font-semibold tracking-wide text-muted uppercase">
+              About the author
+            </p>
+            <p className="mt-2 font-semibold text-foreground">
+              <a href="https://suedeai.ai/founder" className="transition hover:text-accent-strong">
+                Jason Colapietro
+              </a>
+            </p>
+            <p className="text-sm text-muted">Founder and CEO, Suede AI · West Palm Beach, Florida</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Jason founded Suede AI in 2024 as an agentic platform company, with AI search
+              visibility as a service line. Read the{" "}
+              <a href="https://suedeai.ai/founder" className="text-accent-strong underline-offset-4 hover:underline">
+                founder page
+              </a>
+              , his personal site at{" "}
+              <a href="https://jasoncolapietro.com/" className="text-accent-strong underline-offset-4 hover:underline">
+                jasoncolapietro.com
+              </a>
+              , or the{" "}
+              <a href="https://seo.suedeai.ai/evidence" className="text-accent-strong underline-offset-4 hover:underline">
+                evidence page
+              </a>{" "}
+              that backs every claim.
+            </p>
+          </aside>
+        )}
       </article>
 
       <section className="mt-16 rounded-3xl border border-accent/30 bg-accent/[0.06] p-8 text-center">

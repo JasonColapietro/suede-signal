@@ -68,6 +68,7 @@ const PAGE_KEYWORDS: Record<string, readonly string[]> = {
   ],
   "/articles": [
     "AI visibility guides",
+    "AI SEO West Palm Beach",
     "generative engine optimization",
     "llms.txt",
     "AI crawlers",
@@ -117,6 +118,27 @@ const PAGE_KEYWORDS: Record<string, readonly string[]> = {
     "community mentions",
     "why does ChatGPT recommend competitors",
     "AI reputation management",
+  ],
+  "/articles/palm-beach-county-ai-signal-audit": [
+    "AI visibility audit West Palm Beach",
+    "AI SEO Palm Beach County",
+    "GEO Jupiter FL",
+    "local AI search visibility",
+    "West Palm Beach web development",
+  ],
+  "/articles/jason-colapietro-training-suede-signal": [
+    "Jason Colapietro",
+    "Semrush Local SEO certification",
+    "HubSpot AEO Fundamentals",
+    "Claude Academy",
+    "AI SEO West Palm Beach",
+  ],
+  "/articles/robots-txt-mistakes-florida-sites": [
+    "robots.txt mistakes",
+    "crawler eligibility",
+    "robots.txt AI crawlers",
+    "OAI-SearchBot",
+    "technical SEO Palm Beach County",
   ],
 };
 

@@ -4,12 +4,12 @@ import { SITE_URL } from "@/lib/site";
 
 // Static routes whose main content changed after the default lastmod below.
 const UPDATED: Record<string, string> = {
-  "": "2026-10-11",
+  "": "2026-11-14",
   "/docs": "2026-10-11",
   "/docs/scoring": "2026-10-11",
   "/docs/api": "2026-10-11",
   "/docs/faq": "2026-10-11",
-  "/articles": "2026-10-11",
+  "/articles": "2026-11-14",
   "/docs/mention-watch": "2026-10-11",
 };
 
