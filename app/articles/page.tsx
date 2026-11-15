@@ -8,7 +8,7 @@ import { SiteFooter } from "@/app/components/SiteFooter";
 
 const title = "AI Visibility Guides and Articles | Suede Signal";
 const description =
-  "Nine AI visibility guides on llms.txt, crawler policy, JSON-LD and citable writing, plus Palm Beach County field notes from Suede AI founder Jason Colapietro.";
+  "Eleven AI visibility guides on llms.txt, crawler policy, JSON-LD and citable writing, plus Palm Beach County field notes from Suede AI founder Jason Colapietro.";
 
 export const metadata: Metadata = {
   title,
@@ -102,11 +102,13 @@ export default function ArticlesIndex() {
           AI visibility guides
         </h1>
         <p className="mt-3 max-w-xl text-muted">
-          Six practitioner guides and three field notes. Four guides map to what the
+          Six practitioner guides and five field notes. Four guides map to what the
           audit checks (AI crawler access, llms.txt, structured data, citable
           writing); two cover where SEO carries over and the community threads AI
           engines learn from. The field notes, written by Suede AI founder Jason
-          Colapietro in West Palm Beach, apply the audit to Palm Beach County sites.
+          Colapietro in West Palm Beach, apply the audit to Palm Beach County sites,
+          from monthly AI mention reporting in Boca Raton to directory consistency in
+          Jupiter.
         </p>
       </section>
       <section className="mt-8 space-y-3">
@@ -188,12 +190,12 @@ export default function ArticlesIndex() {
           What are the West Palm Beach field notes?
         </h2>
         <p className="mt-3 text-muted">
-          Three first-person notes from{" "}
+          Five first-person notes from{" "}
           <a href="https://suedeai.ai/founder" className={inlineLink}>
             Jason Colapietro
           </a>
           , founder of Suede AI, on running the audit for businesses in West Palm Beach,
-          Jupiter and across Palm Beach County, Florida.
+          Jupiter, Boca Raton and across Palm Beach County, Florida.
         </p>
         <ul className="mt-6 space-y-3">
           {articles

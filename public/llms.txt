@@ -23,11 +23,13 @@
 
 ## Field notes from West Palm Beach
 
-First-person notes by Jason Colapietro, founder of Suede AI, on applying the audit to businesses in West Palm Beach, Jupiter and Palm Beach County, Florida.
+First-person notes by Jason Colapietro, founder of Suede AI, on applying the audit to businesses in West Palm Beach, Jupiter, Boca Raton and Palm Beach County, Florida.
 
 - [Reading Your Brand's AI Signal: A Palm Beach County Audit](https://signal.suedeai.ai/articles/palm-beach-county-ai-signal-audit): a six-step AI visibility audit for local service businesses
 - [How Jason Colapietro's Training Shapes Suede Signal](https://signal.suedeai.ai/articles/jason-colapietro-training-suede-signal): Semrush, HubSpot AEO and Claude Academy training mapped to the audit's lanes
 - [Robots.txt Mistakes Local Florida Sites Make](https://signal.suedeai.ai/articles/robots-txt-mistakes-florida-sites): six crawler eligibility mistakes and the exact fixes
+- [Monitoring AI Mentions Monthly: A Boca Raton Report Template](https://signal.suedeai.ai/articles/monthly-ai-mention-report-boca-raton): a six-section monthly AI mention report for Boca Raton professional-services firms
+- [Entity Consistency Across Directories for Jupiter Companies](https://signal.suedeai.ai/articles/entity-consistency-directories-jupiter): a six-field entity record that keeps service-area businesses consistent without publishing an address
 
 ## Company
 

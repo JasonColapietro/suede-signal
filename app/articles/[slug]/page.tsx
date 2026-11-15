@@ -28,16 +28,20 @@ const TITLE_SUFFIX = " | Suede Signal";
 
 // Where founder field notes are written for. Places only: no address, phone
 // or hours, and no new Organization or Person nodes.
-const FIELD_NOTE_PLACES = [
+const DEFAULT_FIELD_NOTE_PLACES = [
   "West Palm Beach",
   "Jupiter",
   "Palm Beach Gardens",
   "Palm Beach County",
-].map((name) => ({
-  "@type": "Place",
-  name: `${name}, Florida`,
-  address: { "@type": "PostalAddress", addressRegion: "FL", addressCountry: "US" },
-}));
+];
+
+function placeNodes(names: string[]) {
+  return names.map((name) => ({
+    "@type": "Place",
+    name: `${name}, Florida`,
+    address: { "@type": "PostalAddress", addressRegion: "FL", addressCountry: "US" },
+  }));
+}
 
 // Keep rendered <title> within 60 characters: drop the brand suffix when
 // the article title plus suffix would run over.
@@ -89,6 +93,7 @@ export default async function ArticlePage({ params }: Props) {
 
   const pageUrl = `${SITE_URL}/articles/${article.slug}`;
   const isFounderNote = article.byline === "founder";
+  const places = placeNodes(article.places ?? DEFAULT_FIELD_NOTE_PLACES);
   const articleSchema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -138,7 +143,7 @@ export default async function ArticlePage({ params }: Props) {
             : "https://suedeai.ai/#organization",
         },
         publisher: { "@id": "https://suedeai.ai/#organization" },
-        ...(isFounderNote ? { about: FIELD_NOTE_PLACES, spatialCoverage: FIELD_NOTE_PLACES } : {}),
+        ...(isFounderNote ? { about: places, spatialCoverage: places } : {}),
         keywords: keywordsFor(`/articles/${article.slug}`).join(", "),
       },
     ],

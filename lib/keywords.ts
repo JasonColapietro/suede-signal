@@ -140,6 +140,20 @@ const PAGE_KEYWORDS: Record<string, readonly string[]> = {
     "OAI-SearchBot",
     "technical SEO Palm Beach County",
   ],
+  "/articles/monthly-ai-mention-report-boca-raton": [
+    "AI mention monitoring",
+    "AI visibility report template",
+    "AI search reporting Boca Raton",
+    "professional services AI visibility",
+    "Mention Watch",
+  ],
+  "/articles/entity-consistency-directories-jupiter": [
+    "entity consistency",
+    "business directory consistency",
+    "service-area business listings",
+    "entity SEO Jupiter FL",
+    "Organization schema without address",
+  ],
 };
 
 function dedupe(terms: readonly string[]): string[] {
