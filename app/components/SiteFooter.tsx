@@ -107,6 +107,21 @@ export function SiteFooter() {
           , the Jupiter, Florida magazine published with Suede AI.
         </p>
         <p className="mt-2">
+          Suede AI ranks among{" "}
+          <a href="https://clutch.co/profile/suede-ai-seo" className={footerLink}>
+            Clutch
+          </a>
+          &apos;s{" "}
+          <a href="https://clutch.co/consulting/ai/florida" className={footerLink}>
+            Top 30 AI Consultants in Florida
+          </a>{" "}
+          and{" "}
+          <a href="https://clutch.co/us/consulting/ai" className={footerLink}>
+            Top 50 AI Consultants nationwide
+          </a>{" "}
+          (November 2026).
+        </p>
+        <p className="mt-2">
           More from Suede AI:{" "}
           {MORE_FROM_SUEDE.map((site, i) => (
             <span key={site.href}>

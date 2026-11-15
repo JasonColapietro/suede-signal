@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       url: `${SITE_URL}/articles/${article.slug}`,
       publishedTime: article.date,
+      modifiedTime: article.updated ?? article.date,
       ...(article.byline === "founder" ? { authors: ["https://suedeai.ai/founder"] } : {}),
       images: [
         {
@@ -129,7 +130,7 @@ export default async function ArticlePage({ params }: Props) {
         description: article.description,
         image: OG_IMAGE,
         datePublished: article.date,
-        dateModified: article.date,
+        dateModified: article.updated ?? article.date,
         mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
         author: {
           "@id": isFounderNote
