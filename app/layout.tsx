@@ -17,15 +17,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Suede Signal: AI-readiness audit for answer engines",
+  title: "AI Crawler Readiness Check for Your Site | Suede Signal",
   description:
-    "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
+    "Free AI crawler readiness check. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
   alternates: { canonical: "/" },
   keywords: keywordsFor("/"),
   openGraph: {
-    title: "Suede Signal: AI-readiness audit for answer engines",
+    title: "AI Crawler Readiness Check for Your Site | Suede Signal",
     description:
-      "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
+      "Free AI crawler readiness check. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
     url: SITE_URL,
     siteName: "Suede Signal",
     type: "website",
@@ -34,15 +34,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Suede Signal: AI-readiness audit for answer engines",
+        alt: "Suede Signal: AI crawler readiness check for your site",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Suede Signal: AI-readiness audit for answer engines",
+    title: "AI Crawler Readiness Check for Your Site | Suede Signal",
     description:
-      "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
+      "Free AI crawler readiness check. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
     images: [OG_IMAGE],
   },
 };
