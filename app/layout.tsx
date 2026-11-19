@@ -17,13 +17,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Suede Signal: AI-readiness audit for answer engines",
+  title: "AI Crawler Readiness Check for Your Site | Suede Signal",
   description:
     "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
   alternates: { canonical: "/" },
   keywords: keywordsFor("/"),
   openGraph: {
-    title: "Suede Signal: AI-readiness audit for answer engines",
+    title: "AI Crawler Readiness Check for Your Site | Suede Signal",
     description:
       "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
     url: SITE_URL,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Suede Signal: AI-readiness audit for answer engines",
+    title: "AI Crawler Readiness Check for Your Site | Suede Signal",
     description:
       "Free AI-readiness audit. See what ChatGPT, Claude, and Perplexity can read on your site, what's missing, and exactly what to fix.",
     images: [OG_IMAGE],
