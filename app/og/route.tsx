@@ -40,7 +40,7 @@ export function GET() {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.1 }}>
-            AI-readiness audit
+            AI crawler readiness check
           </div>
           <div
             style={{
@@ -69,7 +69,7 @@ export function GET() {
           }}
         >
           <div style={{ display: "flex" }}>signal.suedeai.ai</div>
-          <div style={{ display: "flex", color: "#dd6538" }}>Free audit</div>
+          <div style={{ display: "flex", color: "#dd6538" }}>Free check</div>
         </div>
       </div>
     ),

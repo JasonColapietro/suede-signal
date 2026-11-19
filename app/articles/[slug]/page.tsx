@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: "Suede Signal: AI-readiness audit for answer engines",
+          alt: "Suede Signal: AI crawler readiness check for your site",
         },
       ],
     },

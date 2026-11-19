@@ -560,7 +560,7 @@ export default function Home() {
       <section className="relative pt-16 pb-12 text-center">
         <OrbitIcons />
         <span className="relative inline-block rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted shadow-sm">
-          <span className="font-semibold text-accent-strong">Free</span> AI search visibility audit
+          <span className="font-semibold text-accent-strong">Free</span> AI crawler readiness check
         </span>
         <h1 className="relative mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           Make your site legible
@@ -569,7 +569,7 @@ export default function Home() {
         </h1>
         <p className="relative mx-auto mt-5 max-w-xl text-lg text-muted">
           ChatGPT, Claude, and Perplexity are the new front page. Paste your URL and get a graded
-          audit in seconds: what the engines can read, what&apos;s missing, and exactly what to
+          readiness report in seconds: what the engines can read, what&apos;s missing, and exactly what to
           fix.
         </p>
 
