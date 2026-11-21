@@ -9,7 +9,7 @@
 //     separate from The Manifest ranking, which must carry its date.
 // The round 4 depth notes are additionally checked for length, metadata
 // lengths, a 2026-11-15 publish date, city-level places, and in-body deep
-// links to articles on at least two other Suede AI satellite sites.
+// links to articles on at least two other Suede satellite sites.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -32,7 +32,7 @@ const DEPTH_NOTES = [
 ];
 
 const CLUTCH_SENTENCE =
-  "Suede AI ranks among [Clutch](https://clutch.co/profile/suede-ai-seo)'s " +
+  "Suede ranks among [Clutch](https://clutch.co/profile/suede-ai-seo)'s " +
   "[Top 30 AI Consultants in Florida](https://clutch.co/consulting/ai/florida) and " +
   "[Top 50 AI Consultants nationwide](https://clutch.co/us/consulting/ai) (November 2026).";
 

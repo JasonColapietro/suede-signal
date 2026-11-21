@@ -8,7 +8,7 @@ import { SiteFooter } from "@/app/components/SiteFooter";
 
 const title = "AI Visibility Guides and Articles | Suede Signal";
 const description =
-  "Eleven AI visibility guides on llms.txt, crawler policy, JSON-LD and citable writing, plus Palm Beach County field notes from Suede AI founder Jason Colapietro.";
+  "Eleven AI visibility guides on llms.txt, crawler policy, JSON-LD and citable writing, plus Palm Beach County field notes from Suede founder Jason Colapietro.";
 
 export const metadata: Metadata = {
   title,
@@ -105,7 +105,7 @@ export default function ArticlesIndex() {
           Six practitioner guides and five field notes. Four guides map to what the
           audit checks (AI crawler access, llms.txt, structured data, citable
           writing); two cover where SEO carries over and the community threads AI
-          engines learn from. The field notes, written by Suede AI founder Jason
+          engines learn from. The field notes, written by Suede founder Jason
           Colapietro in West Palm Beach, apply the audit to Palm Beach County sites,
           from monthly AI mention reporting in Boca Raton to directory consistency in
           Jupiter.
@@ -194,7 +194,7 @@ export default function ArticlesIndex() {
           <a href="https://suedeai.ai/founder" className={inlineLink}>
             Jason Colapietro
           </a>
-          , founder of Suede AI, on running the audit for businesses in West Palm Beach,
+          , founder of Suede, on running the audit for businesses in West Palm Beach,
           Jupiter, Boca Raton and across Palm Beach County, Florida.
         </p>
         <ul className="mt-6 space-y-3">
@@ -212,7 +212,7 @@ export default function ArticlesIndex() {
         <p className="mt-6 text-sm text-muted">
           Want the same review done for you? The{" "}
           <a href="https://suedeai.agency/assessment" className={inlineLink}>
-            Suede AI assessment
+            Suede assessment
           </a>{" "}
           covers technical SEO, AI visibility and web development for Palm Beach County
           businesses.

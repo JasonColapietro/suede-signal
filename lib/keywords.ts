@@ -8,7 +8,7 @@
 // from the 2026-09-08 keyword research, geo_practice group, plus the page's
 // own topic). This file has no imports so the node:test guard can load it.
 
-export const BRAND_KEYWORDS = ["Suede Signal", "Suede AI"] as const;
+export const BRAND_KEYWORDS = ["Suede Signal", "Suede"] as const;
 
 const PAGE_KEYWORDS: Record<string, readonly string[]> = {
   "/": [

@@ -177,10 +177,10 @@ export default async function ArticlePage({ params }: Props) {
           · {article.readingMinutes} min read ·{" "}
           {isFounderNote ? (
             <a href="https://suedeai.ai/founder" className="transition hover:text-foreground">
-              Jason Colapietro, Suede AI
+              Jason Colapietro, Suede
             </a>
           ) : (
-            "Suede AI"
+            "Suede"
           )}
         </p>
         <div
@@ -200,9 +200,9 @@ export default async function ArticlePage({ params }: Props) {
                 Jason Colapietro
               </a>
             </p>
-            <p className="text-sm text-muted">Founder and CEO, Suede AI · West Palm Beach, Florida</p>
+            <p className="text-sm text-muted">Founder and CEO, Suede · West Palm Beach, Florida</p>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              Jason founded Suede AI in 2024 as an agentic platform company, with AI search
+              Jason founded Suede in 2024 as an agentic platform company, with AI search
               visibility as a service line. Read the{" "}
               <a href="https://suedeai.ai/founder" className="text-accent-strong underline-offset-4 hover:underline">
                 founder page

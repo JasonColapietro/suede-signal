@@ -3,7 +3,7 @@ import { RELATED_SUEDE_TOOLS } from "@/lib/relatedTools";
 
 const footerLink = "underline-offset-4 transition hover:text-foreground hover:underline";
 
-// Sibling Suede AI sites, each live (HTTP 200) when added on 2026-11-14.
+// Sibling Suede sites, each live (HTTP 200) when added on 2026-11-14.
 const MORE_FROM_SUEDE = [
   { name: "Agentix agent grader", href: "https://agentix.suedeai.ai/" },
   { name: "Suede developer docs", href: "https://docs.suedeai.ai/" },
@@ -81,7 +81,7 @@ export function SiteFooter() {
           id="built-by-suede-ai"
           className="text-xs font-semibold tracking-wide text-muted uppercase"
         >
-          Built by Suede AI in West Palm Beach, Florida
+          Built by Suede in West Palm Beach, Florida
         </h2>
         <p className="mt-2">
           Built by{" "}
@@ -90,11 +90,11 @@ export function SiteFooter() {
           </a>
           , founder of{" "}
           <a href="https://suedeai.ai/" className={footerLink}>
-            Suede AI
+            Suede
           </a>
           . The{" "}
           <a href="https://suedeai.agency/" className={footerLink}>
-            Suede AI SEO, GEO and web development practice
+            Suede SEO, GEO and web development practice
           </a>{" "}
           serves West Palm Beach, Jupiter and Palm Beach County. More from Jason at{" "}
           <a href="https://jasoncolapietro.com/" className={footerLink}>
@@ -104,10 +104,10 @@ export function SiteFooter() {
           <a href="https://jupitersocialfl.com/" className={footerLink}>
             Jupiter Social
           </a>
-          , the Jupiter, Florida magazine published with Suede AI.
+          , the Jupiter, Florida magazine published with Suede.
         </p>
         <p className="mt-2">
-          Suede AI ranks among{" "}
+          Suede ranks among{" "}
           <a href="https://clutch.co/profile/suede-ai-seo" className={footerLink}>
             Clutch
           </a>
@@ -122,7 +122,7 @@ export function SiteFooter() {
           (November 2026).
         </p>
         <p className="mt-2">
-          More from Suede AI:{" "}
+          More from Suede:{" "}
           {MORE_FROM_SUEDE.map((site, i) => (
             <span key={site.href}>
               {i > 0 && " · "}
