@@ -9,9 +9,11 @@
 //      that promises that". So the copy must describe what the tool CHECKS, not
 //      a RESULT it produces.
 //
-//   2. CANONICAL ORG NAME. The organization is "Suede AI" (estate canon),
-//      never the retired "Suede Labs AI" or a bare "Suede Labs" — in JSON-LD,
-//      bylines, or prose.
+//   2. CANONICAL ORG NAME. The organization is "Suede" (owner direction,
+//      2026-11-21), never the retired "Suede AI", "Suede Labs AI" or
+//      "Suede Labs" in JSON-LD, bylines, or prose. The old names survive only
+//      as schema alternateName values and the one "formerly known as" alias
+//      line in llms.txt.
 //
 //   3. NO EM DASHES. Estate copy voice bans the em dash in public copy. Use a
 //      colon, a comma, a semicolon, or two sentences. The one allowance is a
@@ -102,13 +104,23 @@ test("no outcome-promise phrasing on any served page (per file, tag-stripped)", 
   }
 });
 
-test('organization is named "Suede AI", never "Suede Labs AI" or bare "Suede Labs"', () => {
-  for (const file of [...orgFiles, join(ROOT, "public", "llms.txt")]) {
-    const src = readFileSync(file, "utf8").replace(/(?:"alternateName"|alternateName):\s*\[[^\]]*\]/g, "");
-    const retired = src.match(/Suede Labs/g);
+const RETIRED_NAME = /\bSuede[\s\u00a0](?:AI|Labs)\b/gi;
+const NAME_EXEMPT = [
+  /(?:"alternateName"|alternateName):\s*\[[^\]]*\]/g,
+  /^.*formerly known as Suede AI and Suede Labs\..*$/gm,
+];
+
+test('organization is named "Suede", never "Suede AI" or "Suede Labs"', () => {
+  const publicFiles = readdirSync(join(ROOT, "public"))
+    .filter((name) => /\.(?:html|txt|xml|json)$/.test(name))
+    .map((name) => join(ROOT, "public", name));
+  for (const file of [...orgFiles, ...publicFiles]) {
+    let src = readFileSync(file, "utf8");
+    for (const exempt of NAME_EXEMPT) src = src.replace(exempt, "");
+    const retired = src.match(RETIRED_NAME);
     assert.ok(
       retired === null,
-      `${relative(ROOT, file)} uses "Suede Labs" (${retired?.length}x); canonical name is "Suede AI"`,
+      `${relative(ROOT, file)} uses ${JSON.stringify(retired)}; the company is "Suede"`,
     );
   }
 });
@@ -116,7 +128,7 @@ test('organization is named "Suede AI", never "Suede Labs AI" or bare "Suede Lab
 test("root JSON-LD Organization declares the canonical name", () => {
   const layout = readFileSync(join(ROOT, "app", "layout.tsx"), "utf8");
   assert.match(layout, /"@id":\s*"https:\/\/suedeai\.ai\/#organization"/);
-  assert.match(layout, /name:\s*"Suede AI"/);
+  assert.match(layout, /name:\s*"Suede"/);
 });
 
 test("article metadata publishes the canonical Open Graph URL", () => {

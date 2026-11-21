@@ -20,7 +20,7 @@ export const RELATED_SUEDE_TOOLS: readonly RelatedTool[] = [
       "Free AI visibility audit: check crawler access, entity schema, metadata, content structure and answer-engine signals. Get a score and prioritized repairs.",
   },
   {
-    name: "Suede AI SEO",
+    name: "Suede SEO",
     href: "https://seo.suedeai.ai/",
     description: "GEO and SEO agency in West Palm Beach, FL, run by Jason Colapietro.",
   },

@@ -1,6 +1,8 @@
 # Suede Signal
 
-> Suede Signal is a free, instant AI-visibility audit by Suede AI. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). Up to 22 deterministic checks, no signup, nothing stored.
+> Suede Signal is a free, instant AI-visibility audit by Suede. Paste a URL and get a 0–100 score and A–F grade for how readable, verifiable, and citable the page is to AI answer engines (ChatGPT, Claude, Perplexity, Gemini). Up to 22 deterministic checks, no signup, nothing stored.
+
+Suede was formerly known as Suede AI and Suede Labs.
 
 ## Product
 
@@ -23,7 +25,7 @@
 
 ## Field notes from West Palm Beach
 
-First-person notes by Jason Colapietro, founder of Suede AI, on applying the audit to businesses in West Palm Beach, Jupiter, Boca Raton and Palm Beach County, Florida.
+First-person notes by Jason Colapietro, founder of Suede, on applying the audit to businesses in West Palm Beach, Jupiter, Boca Raton and Palm Beach County, Florida.
 
 - [Reading Your Brand's AI Signal: A Palm Beach County Audit](https://signal.suedeai.ai/articles/palm-beach-county-ai-signal-audit): a six-step AI visibility audit for local service businesses
 - [How Jason Colapietro's Training Shapes Suede Signal](https://signal.suedeai.ai/articles/jason-colapietro-training-suede-signal): Semrush, HubSpot AEO and Claude Academy training mapped to the audit's lanes
@@ -33,18 +35,18 @@ First-person notes by Jason Colapietro, founder of Suede AI, on applying the aud
 
 ## Company
 
-- [Suede AI](https://suedeai.ai): the studio behind Suede Signal
-- [Suede AI Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
-- [Suede AI SEO, GEO and web development](https://suedeai.agency/): the West Palm Beach practice behind the audit; start with the [assessment](https://suedeai.agency/assessment)
-- Recognition: Suede AI ranks among [Clutch](https://clutch.co/profile/suede-ai-seo)'s [Top 30 AI Consultants in Florida](https://clutch.co/consulting/ai/florida) and [Top 50 AI Consultants nationwide](https://clutch.co/us/consulting/ai) (November 2026).
+- [Suede](https://suedeai.ai): the studio behind Suede Signal
+- [Suede Agent Studio](https://agents.suedeai.ai): build the Mention Watch loop as a scheduled agent with approval gates
+- [Suede SEO, GEO and web development](https://suedeai.agency/): the West Palm Beach practice behind the audit; start with the [assessment](https://suedeai.agency/assessment)
+- Recognition: Suede ranks among [Clutch](https://clutch.co/profile/suede-ai-seo)'s [Top 30 AI Consultants in Florida](https://clutch.co/consulting/ai/florida) and [Top 50 AI Consultants nationwide](https://clutch.co/us/consulting/ai) (November 2026).
 - [Jason Colapietro, founder](https://suedeai.ai/founder): canonical founder page; personal site at [jasoncolapietro.com](https://jasoncolapietro.com/)
 - [Evidence](https://seo.suedeai.ai/evidence): receipts for every published claim
-- [Jupiter Social](https://jupitersocialfl.com/): the Jupiter, Florida magazine published with Suede AI
+- [Jupiter Social](https://jupitersocialfl.com/): the Jupiter, Florida magazine published with Suede
 
 ## Related Suede tools
 
 - [Suede Audit](https://optimize.suedeai.ai/): Free AI visibility audit: check crawler access, entity schema, metadata, content structure and answer-engine signals. Get a score and prioritized repairs.
-- [Suede AI SEO](https://seo.suedeai.ai/): GEO and SEO agency in West Palm Beach, FL, run by Jason Colapietro.
+- [Suede SEO](https://seo.suedeai.ai/): GEO and SEO agency in West Palm Beach, FL, run by Jason Colapietro.
 - [Suede ACP/x402 Performance Engine](https://perform.suedeai.ai): Score your ACP/x402 readiness in 60 seconds. Free, no account required.
 - [Claude Code Field Notes](https://claude.suedeai.ai): Six lessons from operating 20+ live software surfaces with Claude Code and AI coding agents.
 
